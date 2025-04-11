@@ -1,95 +1,134 @@
-/* === 基本樣式與暗色系主題 === */
+/* === 全局與字體設定 === */
+@import url('https://fonts.googleapis.com/css2?family=Lancelot&family=Noto+Serif+TC:wght@400;700&display=swap');
+
 :root {
-    /* 定義顏色變數，方便修改 */
-    --bg-color: #2a2a2a; /* 深灰色背景 */
+    /* 顏色變數 (調整為更神秘的色調) */
+    --bg-color: #1a1a2e; /* 深藍紫色背景 */
     --text-color: #e0e0e0; /* 淺灰色文字 */
-    --heading-color: #ffffff; /* 標題用白色 */
-    --primary-accent: #bb86fc; /* 紫色系強調色 (可選) */
-    --secondary-accent: #03dac6; /* 青色系強調色 (可選) */
-    --card-border-color: #555555; /* 卡牌邊框 */
-    --input-bg-color: #3f3f3f; /* 輸入框背景 */
-    --input-border-color: #777777; /* 輸入框邊框 */
-    --section-bg-color: #333333; /* 區塊背景 (問題區、提示詞區) */
-    --button-bg-color: #5a5a5a; /* 按鈕背景 */
-    --button-text-color: #ffffff; /* 按鈕文字 */
-    --button-hover-bg: #777777; /* 按鈕懸停背景 */
+    --heading-color: #f0e6ff; /* 淡紫色標題 */
+    --primary-accent: #9a7aa0; /* 柔和的紫色強調色 */
+    --secondary-accent: #7aa09a; /* 柔和的青色強調色 */
+    --card-border-color: #504f70; /* 卡牌/區塊邊框 */
+    --input-bg-color: #2f2f4f; /* 輸入框背景 */
+    --input-border-color: #7a7a9a; /* 輸入框邊框 */
+    --section-bg-color: rgba(30, 30, 50, 0.7); /* 半透明區塊背景 */
+    --button-bg-color: #4a4a6a; /* 按鈕背景 */
+    --button-text-color: #f0e6ff; /* 按鈕文字 */
+    --button-hover-bg: #6a6a8a; /* 按鈕懸停背景 */
+    --glow-color: rgba(200, 180, 255, 0.5); /* 卡牌光暈顏色 */
+
+    /* 字體變數 */
+    --title-font: 'Lancelot', cursive; /* 標題用特殊字體 */
+    --body-font: 'Noto Serif TC', serif; /* 內文用 Noto Serif TC */
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, 'Microsoft JhengHei', '微軟正黑體'; /* 添加中文字體 */
+    font-family: var(--body-font);
     background-color: var(--bg-color);
+    /* 新增背景圖 - 請替換成您選擇的圖片路徑 */
+    background-image: url('images/mystical_background.jpg'); /* 範例路徑 */
+    background-size: cover; /* 覆蓋整個區域 */
+    background-position: center center; /* 居中顯示 */
+    background-attachment: fixed; /* 固定背景，滾動時不移動 */
+    background-repeat: no-repeat;
     color: var(--text-color);
     text-align: center;
-    margin: 0; /* 移除預設邊距 */
-    padding: 20px; /* 添加一些內邊距 */
-    line-height: 1.6; /* 增加行高提高可讀性 */
+    margin: 0;
+    padding: 20px;
+    line-height: 1.7; /* 稍微再增加行高 */
+    overflow-x: hidden; /* 防止水平滾動條 */
+}
+
+header, main, footer {
+    max-width: 900px; /* 稍微加大內容最大寬度 */
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 15px; /* 左右加 padding */
 }
 
 h1 {
+    font-family: var(--title-font); /* 使用標題字體 */
     color: var(--heading-color);
-    margin-bottom: 15px;
+    font-size: 3em; /* 加大標題字體 */
+    margin-bottom: 25px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5); /* 加文字陰影 */
 }
 
 h2 {
+    font-family: var(--title-font); /* 同上 */
     color: var(--heading-color);
-    margin-bottom: 10px;
-    border-bottom: 1px solid var(--card-border-color); /* 給 H2 加個底線 */
-    padding-bottom: 5px;
+    font-size: 1.8em; /* 加大 */
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--primary-accent); /* 強調色底線 */
+    padding-bottom: 8px;
+    text-align: center;
 }
 
 p {
     color: var(--text-color);
-    max-width: 600px; /* 限制段落寬度，提高可讀性 */
+    max-width: 650px;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+    font-size: 1.1em; /* 稍微加大預設文字 */
+}
+
+/* 引導文字樣式 */
+#guidance-initial, #guidance-shuffle, #guidance-reveal, #footer-text {
+    font-style: italic;
+    color: #c0b0ff; /* 淡紫色引導文字 */
+    opacity: 0.9;
 }
 
 /* --- 問題區樣式 --- */
 .question-section {
     background-color: var(--section-bg-color);
-    padding: 15px 20px; /* 稍微調整 padding */
-    border-radius: 8px;
-    margin-bottom: 30px; /* 加大下方間距 */
+    padding: 20px 25px;
+    border-radius: 10px;
+    margin-bottom: 35px;
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
     text-align: left;
     border: 1px solid var(--card-border-color);
-}
-
-.topic-selection, .question-input {
-    margin-bottom: 15px; /* 加大間距 */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4); /* 加陰影 */
 }
 
 .topic-selection label, .question-input label {
     margin-right: 10px;
-    font-weight: bold;
-    color: var(--heading-color); /* 標籤用亮一點的顏色 */
+    font-weight: normal; /* 標籤不用粗體 */
+    color: var(--text-color);
+    display: block; /* 讓標籤獨立一行 */
+    margin-bottom: 8px;
 }
 
 .topic-selection input[type="radio"] {
     margin-right: 5px;
-    vertical-align: middle; /* 讓 radio 和文字對齊 */
+    vertical-align: middle;
+    accent-color: var(--primary-accent); /* 改變 radio 選中顏色 */
 }
 .topic-selection label[for^="topic-"] {
      font-weight: normal;
-     margin-right: 15px;
-     vertical-align: middle; /* 讓 radio 和文字對齊 */
-     cursor: pointer; /* 提示標籤也可點擊 */
+     margin-right: 20px; /* 選項間距 */
+     vertical-align: middle;
+     cursor: pointer;
+     display: inline-block; /* 確保換行正常 */
+     margin-bottom: 10px; /* 換行時的間距 */
 }
+
 
 .question-input input[type="text"],
 .question-input textarea {
     width: 100%;
-    padding: 10px; /* 加大 padding */
-    margin-top: 8px;
+    padding: 12px; /* 加大 padding */
+    margin-top: 5px;
     box-sizing: border-box;
     border: 1px solid var(--input-border-color);
     border-radius: 4px;
     background-color: var(--input-bg-color);
-    color: var(--text-color); /* 輸入文字顏色 */
-    font-size: 1em; /* 確保字體大小 */
+    color: var(--text-color);
+    font-size: 1em;
+    font-family: var(--body-font); /* 確保字體一致 */
 }
 
 /* --- 牌陣區樣式 --- */
@@ -98,259 +137,209 @@ p {
     justify-content: center;
     align-items: flex-start;
     flex-wrap: wrap;
-    gap: 25px; /* 稍微加大卡牌間距 */
-    margin-top: 30px;
-    margin-bottom: 30px;
-    padding: 0 10px; /* 左右留點空間 */
+    gap: 30px; /* 加大卡牌間距 */
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding: 0 10px;
 }
 
 .card-position {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 160px; /* 稍微加寬 */
+    width: 180px; /* 加寬 */
 }
 
 .card-slot img {
-    width: 120px; /* 稍微加大卡牌圖片 */
+    width: 130px; /* 加大卡牌圖片 */
     height: auto;
     border: 1px solid var(--card-border-color);
-    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.4); /* 調整陰影適應深色背景 */
-    margin-bottom: 10px;
-    transition: transform 0.5s ease-in-out; /* 讓翻轉更平滑 */
+    /* 修改陰影為光暈效果 */
+    box-shadow: 0 0 15px 2px var(--glow-color);
+    margin-bottom: 15px; /* 加大間距 */
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s ease; /* 平滑過渡 */
     cursor: pointer;
-    background-color: var(--input-bg-color); /* 給圖片加個背景色，避免透明圖問題 */
-    border-radius: 5px; /* 加個小圓角 */
+    background-color: var(--input-bg-color);
+    border-radius: 8px; /* 加大圓角 */
 }
+.card-slot img:hover:not(.revealed) { /* 滑過未翻開的牌 */
+     transform: translateY(-5px) scale(1.03); /* 稍微上移放大 */
+     box-shadow: 0 0 25px 5px var(--glow-color); /* 增強光暈 */
+}
+
 
 .card-slot img.revealed {
      cursor: default;
+     box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.4); /* 翻開後恢復普通陰影 */
 }
 
 .card-slot img.reversed {
     transform: rotate(180deg);
 }
+.card-slot img.reversed:hover:not(.revealed) { /* 修正 hover 效果 */
+     transform: translateY(-5px) scale(1.03) rotate(180deg);
+}
+
 
 .position-label {
     font-weight: bold;
-    margin-bottom: 5px;
-    font-size: 0.95em; /* 稍微加大 */
+    margin-bottom: 8px; /* 加大間距 */
+    font-size: 1em;
     color: var(--heading-color);
+    font-family: var(--title-font); /* 位置標籤也用特殊字體 */
+    letter-spacing: 1px; /* 增加字間距 */
 }
 
 .card-meaning {
-    font-size: 0.85em; /* 稍微加大 */
+    font-size: 0.9em;
     text-align: left;
-    min-height: 60px;
-    padding: 8px;
-    border-top: 1px dashed var(--card-border-color); /* 虛線改用變數顏色 */
+    min-height: 70px;
+    padding: 10px;
+    border: 1px solid var(--card-border-color); /* 改為實線邊框 */
+    background-color: rgba(0, 0, 0, 0.2); /* 加點半透明背景 */
+    border-radius: 5px;
     margin-top: 10px;
-    width: 100%; /* 讓寬度撐滿 */
+    width: 100%;
     box-sizing: border-box;
 }
+.card-meaning b { /* 牌名加粗 */
+    color: var(--primary-accent); /* 強調色 */
+}
 
-/* --- 按鈕樣式 --- */
-button#draw-button { /* 更明確的選擇器 */
-    padding: 12px 25px; /* 加大按鈕 */
-    font-size: 1.1em; /* 加大字體 */
+/* --- 按鈕樣式 (統一風格) --- */
+button {
+    padding: 12px 28px;
+    font-size: 1.1em;
     cursor: pointer;
-    margin-top: 20px;
-    background-color: var(--button-bg-color);
+    margin: 15px 10px; /* 按鈕間距 */
+    background: linear-gradient(145deg, var(--button-hover-bg), var(--button-bg-color)); /* 漸變背景 */
     color: var(--button-text-color);
-    border: none; /* 移除預設邊框 */
-    border-radius: 5px;
-    transition: background-color 0.3s ease; /* 平滑過渡 */
+    border: 1px solid var(--primary-accent); /* 強調色邊框 */
+    border-radius: 25px; /* 圓角按鈕 */
+    transition: all 0.3s ease;
+    font-family: var(--title-font); /* 按鈕也用特殊字體 */
+    letter-spacing: 1px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 
-button#draw-button:hover:not(:disabled) { /* 滑過且非禁用狀態 */
-    background-color: var(--button-hover-bg);
+button:hover:not(:disabled) {
+    background: linear-gradient(145deg, var(--button-bg-color), var(--button-hover-bg));
+    box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+    transform: translateY(-2px); /* 懸停時輕微上移 */
 }
 
-button#draw-button:disabled { /* 禁用狀態 */
+button:disabled {
     cursor: not-allowed;
-    opacity: 0.6;
+    opacity: 0.5;
+    box-shadow: none;
 }
+
+/* --- 複製按鈕樣式 --- */
+button#copy-prompt-button {
+    display: inline-block; /* 新增：改為 inline-block，使其能被 text-align: center 影響 */
+    margin-top: 15px; /* 保留或調整上方間距 */
+    margin-bottom: 5px; /* 可以加點下方間距 */
+    padding: 8px 15px;
+    font-size: 0.9em;
+    cursor: pointer;
+    background: linear-gradient(145deg, var(--secondary-accent), #5a8a80);
+    color: #ffffff; /* 改為白色文字可能對比更好 */
+    border: none;
+    border-radius: 25px; /* 與主按鈕風格一致 */
+    transition: all 0.3s ease;
+    font-family: var(--title-font); /* 使用主題字體 */
+    letter-spacing: 1px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+button#copy-prompt-button:hover:not(:disabled) { /* 修改 hover 顏色 */
+    background: linear-gradient(145deg, #5a8a80, var(--secondary-accent));
+    box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+    transform: translateY(-2px);
+}
+
+
+button#copy-prompt-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+    box-shadow: none;
+}
+
 
 /* --- 提示詞區樣式 --- */
 .prompt-area {
-    margin-top: 40px;
+    margin-top: 50px; /* 加大間距 */
     text-align: left;
-    max-width: 600px;
+    max-width: 650px; /* 加寬 */
     margin-left: auto;
     margin-right: auto;
-    background-color: var(--section-bg-color); /* 同問題區背景 */
-    padding: 15px 20px;
-    border-radius: 8px;
+    background-color: var(--section-bg-color);
+    padding: 20px 25px;
+    border-radius: 10px;
     border: 1px solid var(--card-border-color);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+    text-align: center;
 }
 
 .prompt-area h2 {
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 .prompt-area p {
-    font-size: 0.9em;
-    color: #aaa; /* 說明文字用更淡的顏色 */
-    margin-bottom: 10px;
+    font-size: 0.95em;
+    color: #bdbdbd; /* 說明文字 */
+    margin-bottom: 15px;
     text-align: center;
 }
 
 #llm-prompt-output {
     width: 100%;
     box-sizing: border-box;
-    padding: 10px;
-    font-family: 'Courier New', Courier, monospace; /* 等寬字體 */
-    font-size: 0.9em;
+    padding: 15px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.95em;
     border: 1px solid var(--input-border-color);
-    background-color: var(--input-bg-color); /* 同輸入框背景 */
-    color: var(--text-color); /* 同主要文字顏色 */
+    background-color: var(--input-bg-color);
+    color: var(--text-color);
     resize: vertical;
     border-radius: 4px;
-    min-height: 200px; /* 給個最小高度 */
-    margin-bottom: 10px; /* 在 textarea 和按鈕之間加點間距 */
+    min-height: 250px; /* 加高 */
+    text-align: left; /* 確保 textarea 內的文字還是靠左對齊 */
+    margin-bottom: 15px; /* 與複製按鈕間距 */
 }
 
-/* --- 新增：複製按鈕樣式 --- */
-button#copy-prompt-button {
-    display: block; /* 讓按鈕獨佔一行 */
-    margin: 10px auto 0 auto; /* 上方間距，左右自動居中 */
-    padding: 8px 15px; /* 比主按鈕小一點 */
-    font-size: 0.9em;
-    cursor: pointer;
-    background-color: var(--secondary-accent, #03dac6); /* 使用次要強調色或預設青色 */
-    color: #000000; /* 深色文字以確保對比 */
-    border: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease, opacity 0.3s ease;
-}
+/* === 響應式設計 === */
 
-button#copy-prompt-button:hover {
-    opacity: 0.85; /* 滑過時稍微變淡 */
-}
-
-button#copy-prompt-button:disabled { /* 複製成功後短暫禁用 */
-    cursor: not-allowed;
-    opacity: 0.7;
-}
-
-/* === 響應式設計 (手機兼容性) === */
-
-/* 中等螢幕 (例如：平板) */
+/* 中等螢幕 */
 @media (max-width: 768px) {
-    body {
-        padding: 15px; /* 稍微減少頁面 padding */
-    }
-
-    h1 {
-        font-size: 1.8em; /* 縮小標題 */
-    }
-
-    .question-section, .prompt-area {
-        max-width: 95%; /* 讓區塊寬度更大 */
-        padding: 15px;
-    }
-
-    .spread-container {
-        gap: 15px; /* 縮小卡牌間距 */
-    }
-
-    .card-position {
-        width: 140px; /* 稍微縮小卡牌位置寬度 */
-    }
-
-     .card-slot img {
-        width: 100px; /* 稍微縮小卡牌圖片 */
-    }
-
-    button#draw-button {
-        padding: 10px 20px;
-        font-size: 1em;
-    }
-
-    #llm-prompt-output {
-        min-height: 150px;
-    }
+    body { padding: 15px; }
+    h1 { font-size: 2.5em; }
+    h2 { font-size: 1.6em; }
+    p { font-size: 1em; }
+    .question-section, .prompt-area { max-width: 95%; padding: 15px; }
+    .spread-container { gap: 20px; }
+    .card-position { width: 150px; }
+    .card-slot img { width: 110px; }
+    button { padding: 10px 25px; font-size: 1em; }
+    #llm-prompt-output { min-height: 200px; }
 }
 
-/* 小型螢幕 (例如：手機) */
+/* 小型螢幕 */
 @media (max-width: 480px) {
-    body {
-        padding: 10px;
-        line-height: 1.5;
-    }
-
-    h1 {
-        font-size: 1.5em;
-    }
-    h2 {
-        font-size: 1.2em;
-    }
-
-    p {
-       font-size: 0.9em;
-    }
-
-    .question-section, .prompt-area {
-        max-width: 100%; /* 區塊佔滿寬度 */
-        padding: 10px;
-    }
-
-    .topic-selection label[for^="topic-"] {
-         margin-right: 10px; /* 進一步縮小選項間距 */
-         display: inline-block; /* 確保換行正常 */
-         margin-bottom: 5px; /* 如果換行，加點下間距 */
-    }
-
-    .question-input label {
-        display: block; /* 讓標籤獨立一行 */
-        margin-bottom: 5px;
-    }
-
-    .question-input input[type="text"],
-    .question-input textarea {
-        padding: 8px;
-    }
-
-
-    .spread-container {
-        gap: 10px;
-        padding: 0 5px; /* 幾乎移除左右 padding */
-        justify-content: space-around; /* 讓卡牌均勻分佈 */
-    }
-
-    .card-position {
-        width: calc(33% - 10px); /* 嘗試讓三張牌在一行，減去 gap */
-        /* 或者，如果想讓牌變大並堆疊： */
-        /* width: 70%; */ /* 讓卡牌更寬，促使換行 */
-    }
-
-    .card-slot img {
-        width: 90px; /* 再次縮小卡牌圖片 */
-    }
-
-    .position-label {
-        font-size: 0.85em;
-    }
-
-     .card-meaning {
-        font-size: 0.8em;
-        min-height: 40px;
-        padding: 5px;
-    }
-
-    button#draw-button {
-        width: 80%; /* 讓按鈕更寬，易於點擊 */
-        padding: 12px 15px;
-    }
-
-     #llm-prompt-output {
-        min-height: 120px;
-        font-size: 0.8em;
-    }
-
-    button#copy-prompt-button {
-        width: 60%; /* 手機上按鈕寬一點 */
-        padding: 10px 15px;
-    }
+    body { padding: 10px; line-height: 1.6; }
+    h1 { font-size: 2em; }
+    h2 { font-size: 1.4em; }
+    p { font-size: 0.95em; }
+    .question-section, .prompt-area { max-width: 100%; padding: 10px 15px; }
+    .topic-selection label[for^="topic-"] { margin-right: 10px; }
+    .spread-container { gap: 15px; }
+    .card-position { width: calc(33% - 15px); } /* 確保一行三張牌 */
+    .card-slot img { width: 90px; }
+    .position-label { font-size: 0.9em; }
+    .card-meaning { font-size: 0.85em; min-height: 50px; padding: 8px; }
+    button#copy-prompt-button { width: auto; padding: 10px 20px; margin-top: 15px; } /* 讓按鈕並排 */
+    #draw-button, #cut-button { display: block; margin-left: auto; margin-right: auto; width: 80%; } /* 主按鈕置中 */
+    #copy-prompt-button { width: auto; }
+    #llm-prompt-output { min-height: 180px; font-size: 0.9em; }
 }

@@ -3,62 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>三張牌塔羅占卜</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lancelot&family=Noto+Serif+TC:wght@400;700&display=swap" rel="stylesheet">
+    <title>星語密室 - 塔羅啟示</title> <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>三張牌塔羅占卜</h1>
+    <header>
+        <h1>星語密室</h1> </header>
 
-    <div class="question-section">
-        <div class="topic-selection">
-            <label>請選擇問題範圍：</label>
-            <input type="radio" id="topic-love" name="topic" value="感情">
-            <label for="topic-love">感情</label>
-            <input type="radio" id="topic-career" name="topic" value="事業">
-            <label for="topic-career">事業</label>
-            <input type="radio" id="topic-other" name="topic" value="其他">
-            <label for="topic-other">其他</label>
-            </div>
-        <div class="question-input">
-            <label for="user-question">請輸入您的具體問題：</label>
-            <input type="text" id="user-question" placeholder="例如：我該如何改善目前的感情狀況？">
+    <main>
+        <p id="guidance-initial">靜下心神，深吸一口氣，專注於您心中的疑惑...</p>
+
+        <div class="question-section">
+            <div class="topic-selection">
+                <label>探尋領域：</label> <input type="radio" id="topic-love" name="topic" value="感情">
+                <label for="topic-love">紅塵情緣 (感情)</label> <input type="radio" id="topic-career" name="topic" value="事業">
+                <label for="topic-career">塵世旅途 (事業)</label> <input type="radio" id="topic-other" name="topic" value="其他">
+                <label for="topic-other">萬象森羅 (其他)</label> </div>
+            <div class="question-input">
+                <label for="user-question">低語您的探問：</label> <input type="text" id="user-question" placeholder="例如：指引我，關於那搖曳的情感之火..."> </div>
         </div>
-    </div>
 
-    <p>選好範圍並輸入問題後，專注思考，點擊按鈕洗牌發牌，再依次點擊牌背查看結果。</p>
+        <p id="guidance-shuffle">選定領域並低語探問後，請呼喚命運，啟動儀式...</p>
 
-    <div class="spread-container">
-        <div class="card-position">
-            <div class="card-slot" id="card-slot-0">
-                <img src="images/card_back.jpg" alt="第一張牌" id="card-image-0">
+        <button id="draw-button">呼喚命運</button> <button id="cut-button" style="display: none;">命運之切</button>
+
+        <p id="guidance-reveal" style="display: none;">牌陣已成，請逐一揭示星辰的低語...</p>
+
+        <div class="spread-container">
+            <div class="card-position">
+                <div class="card-slot" id="card-slot-0">
+                    <img src="images/card_back.jpg" alt="第一張牌" id="card-image-0">
+                </div>
+                <div class="position-label">往昔之影</div> <div class="card-meaning" id="card-meaning-0"></div>
             </div>
-            <div class="position-label">過去 / 背景</div>
-            <div class="card-meaning" id="card-meaning-0"></div>
-        </div>
-        <div class="card-position">
-            <div class="card-slot" id="card-slot-1">
-                <img src="images/card_back.jpg" alt="第二張牌" id="card-image-1">
+            <div class="card-position">
+                <div class="card-slot" id="card-slot-1">
+                    <img src="images/card_back.jpg" alt="第二張牌" id="card-image-1">
+                </div>
+                <div class="position-label">當下之核</div> <div class="card-meaning" id="card-meaning-1"></div>
             </div>
-            <div class="position-label">現在 / 核心</div>
-            <div class="card-meaning" id="card-meaning-1"></div>
-        </div>
-        <div class="card-position">
-            <div class="card-slot" id="card-slot-2">
-                <img src="images/card_back.jpg" alt="第三張牌" id="card-image-2">
+            <div class="card-position">
+                <div class="card-slot" id="card-slot-2">
+                    <img src="images/card_back.jpg" alt="第三張牌" id="card-image-2">
+                </div>
+                <div class="position-label">未來之徑</div> <div class="card-meaning" id="card-meaning-2"></div>
             </div>
-            <div class="position-label">未來 / 結果</div>
-            <div class="card-meaning" id="card-meaning-2"></div>
         </div>
-    </div>
 
-    <button id="draw-button">洗牌 & 發牌</button>
+        <div class="prompt-area" style="display: none;"> <h2>星辰諭示錄</h2> <p>將此段密語傳遞給智慧之源（AI模型），以獲取更深層的啟示：</p>
+            <textarea id="llm-prompt-output" rows="15" readonly></textarea>
+                <button id="copy-prompt-button">複製諭示</button> 
+            </div>
+    </main>
 
-    <div class="prompt-area">
-        <h2>AI 提示詞 (Prompt)</h2>
-        <p>將以下內容複製貼到 AI 模型 (如 ChatGPT, Gemini) 中，以獲得綜合解讀：</p>
-        <textarea id="llm-prompt-output" rows="15" readonly></textarea>
-        <button id="copy-prompt-button">複製提示詞</button>
-    </div>
+    <footer>
+        <p id="footer-text" style="display: none;">儀式完成。願星光指引您的道路。</p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
