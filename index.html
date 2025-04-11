@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>三張牌塔羅占卜</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>三張牌塔羅占卜</h1>
+
+    <div class="question-section">
+        <div class="topic-selection">
+            <label>請選擇問題範圍：</label>
+            <input type="radio" id="topic-love" name="topic" value="感情">
+            <label for="topic-love">感情</label>
+            <input type="radio" id="topic-career" name="topic" value="事業">
+            <label for="topic-career">事業</label>
+            <input type="radio" id="topic-other" name="topic" value="其他">
+            <label for="topic-other">其他</label>
+            </div>
+        <div class="question-input">
+            <label for="user-question">請輸入您的具體問題：</label>
+            <input type="text" id="user-question" placeholder="例如：我該如何改善目前的感情狀況？">
+        </div>
+    </div>
+
+    <p>選好範圍並輸入問題後，專注思考，點擊按鈕洗牌發牌，再依次點擊牌背查看結果。</p>
+
+    <div class="spread-container">
+        <div class="card-position">
+            <div class="card-slot" id="card-slot-0">
+                <img src="images/card_back.jpg" alt="第一張牌" id="card-image-0">
+            </div>
+            <div class="position-label">過去 / 背景</div>
+            <div class="card-meaning" id="card-meaning-0"></div>
+        </div>
+        <div class="card-position">
+            <div class="card-slot" id="card-slot-1">
+                <img src="images/card_back.jpg" alt="第二張牌" id="card-image-1">
+            </div>
+            <div class="position-label">現在 / 核心</div>
+            <div class="card-meaning" id="card-meaning-1"></div>
+        </div>
+        <div class="card-position">
+            <div class="card-slot" id="card-slot-2">
+                <img src="images/card_back.jpg" alt="第三張牌" id="card-image-2">
+            </div>
+            <div class="position-label">未來 / 結果</div>
+            <div class="card-meaning" id="card-meaning-2"></div>
+        </div>
+    </div>
+
+    <button id="draw-button">洗牌 & 發牌</button>
+
+    <div class="prompt-area">
+        <h2>AI 提示詞 (Prompt)</h2>
+        <p>將以下內容複製貼到 AI 模型 (如 ChatGPT, Gemini) 中，以獲得綜合解讀：</p>
+        <textarea id="llm-prompt-output" rows="15" readonly></textarea>
+        <button id="copy-prompt-button">複製提示詞</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

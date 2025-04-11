@@ -1,0 +1,704 @@
+[
+  {
+    "id": 0,
+    "name": "愚人 (The Fool)",
+    "image": "images/00_fool.jpg",
+    "keywords_upright": ["開始", "天真", "自由", "未知", "信念", "潛力"],
+    "meaning_upright": "代表新的旅程、無限的可能性和純粹的信念。勇敢地踏入未知。",
+    "keywords_reversed": ["魯莽", "輕率", "風險", "猶豫不決", "天真", "傻氣"],
+    "meaning_reversed": "可能過於衝動、不計後果，或害怕踏出第一步而錯失良機。"
+  },
+  {
+    "id": 1,
+    "name": "魔術師 (The Magician)",
+    "image": "images/01_magician.jpg",
+    "keywords_upright": ["意志", "創造", "顯化", "資源", "能力", "專注"],
+    "meaning_upright": "擁有實現目標所需的所有資源和能力，是時候採取行動、展現力量了。",
+    "keywords_reversed": ["操縱", "欺騙", "潛能未用", "溝通不暢", "力量誤用"],
+    "meaning_reversed": "可能濫用才能、缺乏自信去運用自身資源，或計畫不周。"
+  },
+  {
+    "id": 2,
+    "name": "女祭司 (The High Priestess)",
+    "image": "images/02_high_priestess.jpg",
+    "keywords_upright": ["直覺", "潛意識", "神秘", "智慧", "秘密", "內省"],
+    "meaning_upright": "傾聽你的直覺和內在的聲音，有些事情需要深入探索，而非表面所見。",
+    "keywords_reversed": ["秘密揭露", "直覺遲鈍", "膚淺", "壓抑感受", "困惑"],
+    "meaning_reversed": "可能忽略了直覺、有隱藏的秘密被揭露，或過於理性而忽略感受。"
+  },
+  {
+    "id": 3,
+    "name": "皇后 (The Empress)",
+    "image": "images/03_empress.jpg",
+    "keywords_upright": ["豐盛", "母性", "創造力", "感性", "滋養", "自然"],
+    "meaning_upright": "代表豐收、創造力、滋養與感官享受。享受生活的美好與富足。",
+    "keywords_reversed": ["創造力阻塞", "依賴", "窒息的愛", "不安全感", "資源匱乏"],
+    "meaning_reversed": "可能創造力受阻、過度依賴他人，或在關係中感到窒息。"
+  },
+  {
+    "id": 4,
+    "name": "皇帝 (The Emperor)",
+    "image": "images/04_emperor.jpg",
+    "keywords_upright": ["權威", "結構", "秩序", "父親形象", "領導", "穩定"],
+    "meaning_upright": "代表權威、結構和秩序。需要建立規則、掌握控制權並負起責任。",
+    "keywords_reversed": ["專制", "僵化", "控制慾", "缺乏紀律", "權力濫用"],
+    "meaning_reversed": "可能過於專制、僵化固執，或缺乏自制力與領導能力。"
+  },
+  {
+    "id": 5,
+    "name": "教皇 (The Hierophant)",
+    "image": "images/05_hierophant.jpg",
+    "keywords_upright": ["傳統", "信仰", "制度", "導師", "規範", "學習"],
+    "meaning_upright": "代表傳統、制度化的信仰與學習。尋求指導、遵守規範或成為他人的導師。",
+    "keywords_reversed": ["挑戰傳統", "非主流", "打破規則", "思想僵化", "虛偽"],
+    "meaning_reversed": "可能挑戰既有規範、思想過於保守，或盲目跟從。"
+  },
+  {
+    "id": 6,
+    "name": "戀人 (The Lovers)",
+    "image": "images/06_lovers.jpg",
+    "keywords_upright": ["選擇", "關係", "結合", "價值觀", "和諧", "溝通"],
+    "meaning_upright": "面臨重要的選擇，通常與關係、價值觀或內在和諧有關。需要真誠溝通。",
+    "keywords_reversed": ["錯誤選擇", "關係失和", "衝突", "價值觀混亂", "猶豫不決"],
+    "meaning_reversed": "可能做出錯誤的決定、關係出現問題，或內心充滿矛盾。"
+  },
+  {
+    "id": 7,
+    "name": "戰車 (The Chariot)",
+    "image": "images/07_chariot.jpg",
+    "keywords_upright": ["意志力", "勝利", "行動", "控制", "決心", "前進"],
+    "meaning_upright": "憑藉強大的意志力和決心克服障礙，取得勝利。需要專注目標、果斷前行。",
+    "keywords_reversed": ["失控", "方向錯誤", "衝動", "缺乏自律", "停滯不前"],
+    "meaning_reversed": "可能失去方向、行動魯莽，或缺乏必要的自制力來達成目標。"
+  },
+  {
+    "id": 8,
+    "name": "力量 (Strength)",
+    "image": "images/08_strength.jpg",
+    "keywords_upright": ["內在力量", "勇氣", "耐心", "溫柔", "慈悲", "自制"],
+    "meaning_upright": "展現內在的力量、勇氣和耐心。以溫柔和慈悲馴服內心的野性。",
+    "keywords_reversed": ["軟弱", "恐懼", "缺乏自信", "暴力", "失控", "壓抑"],
+    "meaning_reversed": "可能感到軟弱、缺乏自信，或以強硬而非溫柔的方式應對。"
+  },
+  {
+    "id": 9,
+    "name": "隱者 (The Hermit)",
+    "image": "images/09_hermit.jpg",
+    "keywords_upright": ["內省", "獨處", "智慧", "指引", "探索", "靈性追尋"],
+    "meaning_upright": "需要獨處和內省，尋求內在的智慧和指引。暫時脫離外界的喧囂。",
+    "keywords_reversed": ["孤立", "孤獨", "退縮", "過於保守", "拒絕幫助"],
+    "meaning_reversed": "可能感到過度孤立、與世隔絕，或拒絕他人的建議與幫助。"
+  },
+  {
+    "id": 10,
+    "name": "命運之輪 (Wheel of Fortune)",
+    "image": "images/10_wheel_of_fortune.jpg",
+    "keywords_upright": ["命運", "轉變", "機會", "週期", "運氣", "轉捩點"],
+    "meaning_upright": "生命中的轉折點，命運的改變。可能帶來好運或機會，接受週期的變化。",
+    "keywords_reversed": ["厄運", "停滯", "抗拒改變", "失控", "意外"],
+    "meaning_reversed": "可能遭遇不幸、週期性的低潮，或抗拒生命中必要的改變。"
+  },
+  {
+    "id": 11,
+    "name": "正義 (Justice)",
+    "image": "images/11_justice.jpg",
+    "keywords_upright": ["公平", "正義", "真理", "因果", "法律", "責任"],
+    "meaning_upright": "追求公平、真理和平衡。需要做出客觀、理性的決定，並承擔後果。",
+    "keywords_reversed": ["不公", "偏見", "逃避責任", "法律問題", "失衡"],
+    "meaning_reversed": "可能遭遇不公平的對待、做出帶有偏見的判斷，或逃避應負的責任。"
+  },
+  {
+    "id": 12,
+    "name": "吊人 (The Hanged Man)",
+    "image": "images/12_hanged_man.jpg",
+    "keywords_upright": ["犧牲", "等待", "順應", "新視角", "放下", "臣服"],
+    "meaning_upright": "需要暫停、犧牲或以不同的視角看待問題。臣服於當下，等待時機。",
+    "keywords_reversed": ["無謂犧牲", "拖延", "固執", "不願改變", "徒勞無功"],
+    "meaning_reversed": "可能做出不必要的犧牲、無意義地拖延，或固守舊有觀念。"
+  },
+  {
+    "id": 13,
+    "name": "死神 (Death)",
+    "image": "images/13_death.jpg",
+    "keywords_upright": ["結束", "轉變", "重生", "放下", "清理", "必然性"],
+    "meaning_upright": "代表結束、深刻的轉變和重生。放下不再有益的人事物，迎接新的開始。",
+    "keywords_reversed": ["抗拒改變", "恐懼結束", "停滯", "痛苦的轉變", "損失"],
+    "meaning_reversed": "可能害怕或抗拒必要的結束與轉變，導致停滯不前。"
+  },
+  {
+    "id": 14,
+    "name": "節制 (Temperance)",
+    "image": "images/14_temperance.jpg",
+    "keywords_upright": ["平衡", "調和", "耐心", "整合", "中庸", "和諧"],
+    "meaning_upright": "尋求平衡、和諧與中庸之道。需要耐心調和不同的元素或觀點。",
+    "keywords_reversed": ["失衡", "極端", "衝突", "缺乏耐心", "過度"],
+    "meaning_reversed": "可能走向極端、缺乏耐心，或在生活中感到失衡與衝突。"
+  },
+  {
+    "id": 15,
+    "name": "惡魔 (The Devil)",
+    "image": "images/15_devil.jpg",
+    "keywords_upright": ["束縛", "慾望", "物質主義", "成癮", "誘惑", "陰影面"],
+    "meaning_upright": "代表被慾望、恐懼或物質所束縛。需要面對自己的陰影面和成癮行為。",
+    "keywords_reversed": ["掙脫束縛", "自由", "覺醒", "克服誘惑", "釋放"],
+    "meaning_reversed": "正在或有機會掙脫束縛、意識到問題並尋求自由。"
+  },
+  {
+    "id": 16,
+    "name": "高塔 (The Tower)",
+    "image": "images/16_tower.jpg",
+    "keywords_upright": ["突變", "崩潰", "啟示", "覺醒", "毀滅", "真相"],
+    "meaning_upright": "突如其來的劇變、結構的崩潰。帶來痛苦但必要的真相與覺醒。",
+    "keywords_reversed": ["避免災難", "恐懼改變", "延遲的危機", "內部崩潰"],
+    "meaning_reversed": "可能正在經歷較緩和的轉變，或因抗拒而延遲了不可避免的危機。"
+  },
+  {
+    "id": 17,
+    "name": "星星 (The Star)",
+    "image": "images/17_star.jpg",
+    "keywords_upright": ["希望", "靈感", "療癒", "平靜", "信念", "指引"],
+    "meaning_upright": "在困境中重燃希望、獲得靈感與療癒。保持信念，跟隨內在指引。",
+    "keywords_reversed": ["絕望", "失信", "缺乏靈感", "悲觀", "迷失方向"],
+    "meaning_reversed": "可能感到絕望、失去信念，或對未來感到悲觀和迷茫。"
+  },
+  {
+    "id": 18,
+    "name": "月亮 (The Moon)",
+    "image": "images/18_moon.jpg",
+    "keywords_upright": ["幻象", "恐懼", "潛意識", "不安", "直覺", "未知"],
+    "meaning_upright": "代表潛意識的恐懼、不安與幻象。需要信任直覺，穿越迷霧。",
+    "keywords_reversed": ["釐清", "恐懼消退", "真相大白", "克服不安", "困惑解除"],
+    "meaning_reversed": "可能逐漸看清真相、克服內心的恐懼，或從困惑中解脫。"
+  },
+  {
+    "id": 19,
+    "name": "太陽 (The Sun)",
+    "image": "images/19_sun.jpg",
+    "keywords_upright": ["喜悅", "成功", "活力", "樂觀", "清晰", "真理"],
+    "meaning_upright": "代表成功、喜悅、活力和清晰。享受光明、溫暖和達成目標的時刻。",
+    "keywords_reversed": ["短暫喜悅", "過度樂觀", "精力不足", "延遲成功", "虛假"],
+    "meaning_reversed": "可能過於樂觀而忽略細節，或成功與喜悅有所延遲。"
+  },
+  {
+    "id": 20,
+    "name": "審判 (Judgement)",
+    "image": "images/20_judgement.jpg",
+    "keywords_upright": ["審判", "重生", "召喚", "覺醒", "評估", "寬恕"],
+    "meaning_upright": "代表內在的召喚、覺醒與評估。是時候反省過去，迎接新的生命階段。",
+    "keywords_reversed": ["自我批判", "猶豫不決", "逃避現實", "罪惡感", "錯失機會"],
+    "meaning_reversed": "可能過於自我批判、害怕面對過去，或錯失了重要的覺醒機會。"
+  },
+  {
+    "id": 21,
+    "name": "世界 (The World)",
+    "image": "images/21_world.jpg",
+    "keywords_upright": ["完成", "整合", "成就", "圓滿", "旅行", "滿足"],
+    "meaning_upright": "代表一個週期的圓滿完成、目標的達成與整合。享受成就與滿足感。",
+    "keywords_reversed": ["未完成", "停滯", "缺乏整合", "遺憾", "原地踏步"],
+    "meaning_reversed": "可能事情尚未完成、感到不滿足，或在達成目標前停滯不前。"
+  },
+  {
+    "id": 22,
+    "name": "權杖一 (Ace of Wands)",
+    "image": "images/wands_ace.jpg",
+    "keywords_upright": ["新開始", "靈感", "潛力", "創造力", "熱情", "動力"],
+    "meaning_upright": "充滿潛力的新開始，創意的火花被點燃。抓住機會，展現熱情。",
+    "keywords_reversed": ["延遲", "缺乏動力", "方向不明", "錯失機會", "無聊"],
+    "meaning_reversed": "可能感到缺乏靈感或動力，新的開始有所延遲或方向不明。"
+  },
+  {
+    "id": 23,
+    "name": "權杖二 (Two of Wands)",
+    "image": "images/wands_02.jpg",
+    "keywords_upright": ["計劃", "未來", "選擇", "探索", "展望", "勇氣"],
+    "meaning_upright": "制定未來計劃，站在選擇的起點。需要勇氣去探索新的可能性。",
+    "keywords_reversed": ["猶豫", "恐懼未知", "計劃不周", "受困於現狀", "缺乏遠見"],
+    "meaning_reversed": "可能害怕離開舒適區，計劃不周詳，或缺乏長遠的眼光。"
+  },
+  {
+    "id": 24,
+    "name": "權杖三 (Three of Wands)",
+    "image": "images/wands_03.jpg",
+    "keywords_upright": ["擴展", "展望", "初步成功", "等待結果", "合作", "遠見"],
+    "meaning_upright": "初步的成功顯現，計劃正在展開。放眼未來，等待進一步的成果。",
+    "keywords_reversed": ["延遲", "挫折", "缺乏遠見", "合作不順", "意外障礙"],
+    "meaning_reversed": "可能遇到預期之外的延遲或障礙，需要重新評估計劃。"
+  },
+  {
+    "id": 25,
+    "name": "權杖四 (Four of Wands)",
+    "image": "images/wands_04.jpg",
+    "keywords_upright": ["慶祝", "和諧", "穩定", "家庭", "團聚", "基礎穩固"],
+    "meaning_upright": "慶祝成功的基礎，享受家庭或社群的和諧與穩定。",
+    "keywords_reversed": ["關係不穩", "缺乏支持", "延遲慶祝", "基礎不牢", "過渡期"],
+    "meaning_reversed": "可能家庭或團隊關係不穩定，或慶祝的時刻尚未到來。"
+  },
+  {
+    "id": 26,
+    "name": "權杖五 (Five of Wands)",
+    "image": "images/wands_05.jpg",
+    "keywords_upright": ["競爭", "衝突", "挑戰", "分歧", "混亂", "不同意見"],
+    "meaning_upright": "良性競爭或意見衝突。雖然混亂，但可能激發新的想法。",
+    "keywords_reversed": ["避免衝突", "達成共識", "激烈爭吵", "內鬥", "壓力"],
+    "meaning_reversed": "可能衝突升級為惡性爭鬥，或為了和諧而壓抑真實想法。"
+  },
+  {
+    "id": 27,
+    "name": "權杖六 (Six of Wands)",
+    "image": "images/wands_06.jpg",
+    "keywords_upright": ["勝利", "成功", "認可", "榮耀", "自信", "好消息"],
+    "meaning_upright": "公開的成功與勝利，獲得他人的認可和讚賞。充滿自信的時刻。",
+    "keywords_reversed": ["失敗", "缺乏認可", "驕傲自大", "延遲成功", "壞消息"],
+    "meaning_reversed": "可能成功不如預期，缺乏他人的支持，或變得過於驕傲。"
+  },
+  {
+    "id": 28,
+    "name": "權杖七 (Seven of Wands)",
+    "image": "images/wands_07.jpg",
+    "keywords_upright": ["挑戰", "防禦", "堅持", "勇氣", "立場", "競爭"],
+    "meaning_upright": "面對挑戰，需要勇敢地捍衛自己的立場和信念。堅持下去。",
+    "keywords_reversed": ["寡不敵眾", "放棄", "失去信心", "妥協", "不堪重負"],
+    "meaning_reversed": "可能感到難以抵抗挑戰，想要放棄或做出不必要的妥協。"
+  },
+  {
+    "id": 29,
+    "name": "權杖八 (Eight of Wands)",
+    "image": "images/wands_08.jpg",
+    "keywords_upright": ["迅速", "行動", "消息", "旅行", "進展", "能量"],
+    "meaning_upright": "事情快速進展，可能收到重要消息或展開旅行。充滿活力的時刻。",
+    "keywords_reversed": ["延遲", "挫折", "停滯", "猶豫", "錯失良機", "混亂"],
+    "meaning_reversed": "可能進展受阻、行動延遲，或感到事情發展過於混亂。"
+  },
+  {
+    "id": 30,
+    "name": "權杖九 (Nine of Wands)",
+    "image": "images/wands_09.jpg",
+    "keywords_upright": ["韌性", "堅持", "防禦", "疲憊", "最後的挑戰", "警戒"],
+    "meaning_upright": "經歷挑戰後感到疲憊但仍堅持著。保持警戒，迎接最後的考驗。",
+    "keywords_reversed": ["精疲力竭", "放棄", "偏執", "舊傷復發", "防禦過當"],
+    "meaning_reversed": "可能感到無法再堅持下去，或過於偏執、防禦心過重。"
+  },
+  {
+    "id": 31,
+    "name": "權杖十 (Ten of Wands)",
+    "image": "images/wands_10.jpg",
+    "keywords_upright": ["負擔", "壓力", "責任", "過勞", "苦撐", "義務"],
+    "meaning_upright": "承擔過多的責任和負擔，感到壓力沉重，但目標可能即將達成。",
+    "keywords_reversed": ["卸下重擔", "崩潰", "委派", "逃避責任", "尋求幫助"],
+    "meaning_reversed": "是時候放下一些不必要的負擔，學會委派或尋求幫助。"
+  },
+  {
+    "id": 32,
+    "name": "權杖侍者 (Page of Wands)",
+    "image": "images/wands_page.jpg",
+    "keywords_upright": ["探索", "熱情", "新消息", "自由精神", "創造力", "好奇心"],
+    "meaning_upright": "充滿好奇心與熱情地探索新想法。可能帶來令人興奮的消息。",
+    "keywords_reversed": ["猶豫不決", "缺乏方向", "壞消息", "半途而廢", "衝動"],
+    "meaning_reversed": "可能想法很多但缺乏執行力，或過於衝動而未能堅持。"
+  },
+  {
+    "id": 33,
+    "name": "權杖騎士 (Knight of Wands)",
+    "image": "images/wands_knight.jpg",
+    "keywords_upright": ["行動", "熱情", "衝動", "冒險", "活力", "旅行"],
+    "meaning_upright": "充滿活力和熱情地採取行動，勇於冒險，可能代表快速的變動或旅行。",
+    "keywords_reversed": ["魯莽", "衝動", "延遲", "挫敗感", "精力分散", "缺乏耐心"],
+    "meaning_reversed": "可能行動過於魯莽、缺乏耐心，或精力分散導致延遲。"
+  },
+  {
+    "id": 34,
+    "name": "權杖皇后 (Queen of Wands)",
+    "image": "images/wands_queen.jpg",
+    "keywords_upright": ["自信", "獨立", "熱情", "魅力", "創造力", "勇氣"],
+    "meaning_upright": "充滿自信、熱情和魅力的領導者。獨立自主，勇於追求目標。",
+    "keywords_reversed": ["嫉妒", "霸道", "不安全感", "報復心", "精力耗盡"],
+    "meaning_reversed": "可能變得過於強勢、善妒，或因精力耗盡而失去自信。"
+  },
+  {
+    "id": 35,
+    "name": "權杖國王 (King of Wands)",
+    "image": "images/wands_king.jpg",
+    "keywords_upright": ["領導力", "願景", "企業家精神", "魅力", "啟發", "自信"],
+    "meaning_upright": "具有遠見和魅力的天生領導者。勇於開創，並能啟發他人。",
+    "keywords_reversed": ["專橫", "衝動", "高傲", "缺乏遠見", "不耐煩"],
+    "meaning_reversed": "可能變得過於專橫、衝動，或缺乏耐心和長遠規劃。"
+  },
+   {
+    "id": 36,
+    "name": "聖杯一 (Ace of Cups)",
+    "image": "images/cups_ace.jpg",
+    "keywords_upright": ["愛", "情感", "新關係", "慈悲", "創造力", "直覺"],
+    "meaning_upright": "情感的滿溢與新的開始，可能是新戀情、深刻的連結或創意的湧現。",
+    "keywords_reversed": ["情感壓抑", "關係阻塞", "空虛", "錯失良機", "心門關閉"],
+    "meaning_reversed": "可能情感表達受阻、關係遇到困難，或對機會視而不見。"
+  },
+  {
+    "id": 37,
+    "name": "聖杯二 (Two of Cups)",
+    "image": "images/cups_02.jpg",
+    "keywords_upright": ["結合", "夥伴關係", "吸引力", "和諧", "平等", "愛情"],
+    "meaning_upright": "代表和諧的結合、平等的夥伴關係或愛情的開端。相互吸引與理解。",
+    "keywords_reversed": ["失衡", "關係破裂", "誤解", "吸引力減退", "不平等"],
+    "meaning_reversed": "可能關係失衡、溝通不良導致誤解，或吸引力不如從前。"
+  },
+  {
+    "id": 38,
+    "name": "聖杯三 (Three of Cups)",
+    "image": "images/cups_03.jpg",
+    "keywords_upright": ["慶祝", "友誼", "社群", "歡樂", "合作", "團體"],
+    "meaning_upright": "與朋友或社群一同歡慶、分享喜悅。代表團體合作與和諧。",
+    "keywords_reversed": ["八卦", "過度放縱", "友誼問題", "孤立", "慶祝取消"],
+    "meaning_reversed": "可能團體內部出現問題、過度沉溺於玩樂，或感到被孤立。"
+  },
+  {
+    "id": 39,
+    "name": "聖杯四 (Four of Cups)",
+    "image": "images/cups_04.jpg",
+    "keywords_upright": ["冷漠", "沉思", "不滿", "錯失機會", "內省", "無聊"],
+    "meaning_upright": "感到不滿、冷漠或無聊，可能因此錯過了眼前的機會。需要內省。",
+    "keywords_reversed": ["接受機會", "重新投入", "走出低潮", "覺醒", "不再冷漠"],
+    "meaning_reversed": "可能開始意識到並接受新的機會，走出情感的低谷。"
+  },
+  {
+    "id": 40,
+    "name": "聖杯五 (Five of Cups)",
+    "image": "images/cups_05.jpg",
+    "keywords_upright": ["失落", "悲傷", "遺憾", "失望", "專注於失去", "哀悼"],
+    "meaning_upright": "專注於已經失去的，而忽略了仍然擁有的。感到失落、悲傷與遺憾。",
+    "keywords_reversed": ["接受", "原諒", "向前看", "看到希望", "釋懷"],
+    "meaning_reversed": "開始接受失落，學會原諒，並將目光轉向仍然存在的可能性。"
+  },
+  {
+    "id": 41,
+    "name": "聖杯六 (Six of Cups)",
+    "image": "images/cups_06.jpg",
+    "keywords_upright": ["懷舊", "童年", "回憶", "饋贈", "天真", "和諧"],
+    "meaning_upright": "沉浸在美好的回憶或童年中。可能代表饋贈、分享與單純的快樂。",
+    "keywords_reversed": ["困於過去", "不成熟", "逃避現實", "失去聯繫", "玫瑰色眼鏡"],
+    "meaning_reversed": "可能過於沉溺過去而無法前進，或對現實有不切實際的看法。"
+  },
+  {
+    "id": 42,
+    "name": "聖杯七 (Seven of Cups)",
+    "image": "images/cups_07.jpg",
+    "keywords_upright": ["選擇", "幻想", "誘惑", "白日夢", "機會", "不切實際"],
+    "meaning_upright": "面臨許多選擇和可能性，但可能多是幻想或誘惑。需要釐清現實。",
+    "keywords_reversed": ["釐清", "決心", "專注", "認清現實", "腳踏實地"],
+    "meaning_reversed": "開始從幻想中清醒，認清現實並做出明確的選擇。"
+  },
+  {
+    "id": 43,
+    "name": "聖杯八 (Eight of Cups)",
+    "image": "images/cups_08.jpg",
+    "keywords_upright": ["離開", "追尋", "放下", "失望", "尋求更深層意義", "轉變"],
+    "meaning_upright": "選擇離開不再滿足的現狀，去追尋更深層次的意義或目標。",
+    "keywords_reversed": ["滯留", "害怕改變", "回頭", "滿足於現狀", "猶豫不決"],
+    "meaning_reversed": "可能害怕離開而滯留在不滿意的狀況中，或中途放棄追尋。"
+  },
+  {
+    "id": 44,
+    "name": "聖杯九 (Nine of Cups)",
+    "image": "images/cups_09.jpg",
+    "keywords_upright": ["滿足", "願望成真", "喜悅", "舒適", "情感富足", "享受"],
+    "meaning_upright": "情感上的滿足與願望的實現。享受當下的舒適、喜悅與富足。",
+    "keywords_reversed": ["不滿足", "貪婪", "願望落空", "自滿", "空虛"],
+    "meaning_reversed": "可能願望未能實現，或即使擁有很多仍感空虛、不滿足。"
+  },
+  {
+    "id": 45,
+    "name": "聖杯十 (Ten of Cups)",
+    "image": "images/cups_10.jpg",
+    "keywords_upright": ["幸福", "家庭", "和諧", "情感圓滿", "歸屬感", "喜悅"],
+    "meaning_upright": "家庭幸福、情感連結的最高境界。代表和諧、喜悅與歸屬感。",
+    "keywords_reversed": ["家庭失和", "關係破裂", "期望落空", "孤立", "不和諧"],
+    "meaning_reversed": "可能家庭或關係出現問題，理想的幸福未能實現。"
+  },
+  {
+    "id": 46,
+    "name": "聖杯侍者 (Page of Cups)",
+    "image": "images/cups_page.jpg",
+    "keywords_upright": ["創意訊息", "直覺", "好奇心", "情感表達", "敏感", "新機會"],
+    "meaning_upright": "帶來情感或創意的消息。以開放和好奇的心態探索感受。",
+    "keywords_reversed": ["情感壓抑", "不成熟", "逃避現實", "害羞", "創意受阻"],
+    "meaning_reversed": "可能害怕表達真實感受，情感不成熟，或創造力受阻。"
+  },
+  {
+    "id": 47,
+    "name": "聖杯騎士 (Knight of Cups)",
+    "image": "images/cups_knight.jpg",
+    "keywords_upright": ["浪漫", "魅力", "提議", "理想主義", "情感豐富", "藝術家"],
+    "meaning_upright": "浪漫的追求者或提議。充滿魅力和理想主義，跟隨情感行動。",
+    "keywords_reversed": ["情緒化", "不切實際", "欺騙", "幻滅", "承諾落空"],
+    "meaning_reversed": "可能過於情緒化、不切實際，或遇到情感上的欺騙與幻滅。"
+  },
+  {
+    "id": 48,
+    "name": "聖杯皇后 (Queen of Cups)",
+    "image": "images/cups_queen.jpg",
+    "keywords_upright": ["慈悲", "直覺", "滋養", "敏感", "同理心", "情感智慧"],
+    "meaning_upright": "充滿慈悲、同理心和直覺力。情感豐富且善於滋養他人。",
+    "keywords_reversed": ["情緒不穩", "依賴", "多愁善感", "界線模糊", "操縱情感"],
+    "meaning_reversed": "可能情緒過於敏感、不穩定，或在情感上過度依賴、界線不清。"
+  },
+  {
+    "id": 49,
+    "name": "聖杯國王 (King of Cups)",
+    "image": "images/cups_king.jpg",
+    "keywords_upright": ["情感成熟", "慈悲", "寬容", "外交手腕", "平靜", "平衡"],
+    "meaning_upright": "情感成熟、富有慈悲心和外交手腕的領導者。內心平靜且平衡。",
+    "keywords_reversed": ["情緒壓抑", "冷漠", "操縱", "情緒勒索", "喜怒無常"],
+    "meaning_reversed": "可能壓抑真實情感而顯得冷漠，或利用情感進行操縱。"
+  },
+  {
+    "id": 50,
+    "name": "寶劍一 (Ace of Swords)",
+    "image": "images/swords_ace.jpg",
+    "keywords_upright": ["清晰", "突破", "真理", "心智力量", "決斷", "新想法"],
+    "meaning_upright": "思緒清晰的突破，看清真相。運用智力做出決斷，迎接新觀點。",
+    "keywords_reversed": ["混亂", "誤解", "決策錯誤", "想法受阻", "猶豫不決"],
+    "meaning_reversed": "可能思緒混亂、做出錯誤判斷，或想法無法順利表達。"
+  },
+  {
+    "id": 51,
+    "name": "寶劍二 (Two of Swords)",
+    "image": "images/swords_02.jpg",
+    "keywords_upright": ["僵局", "選擇困難", "逃避", "平衡", "拖延", "防禦"],
+    "meaning_upright": "處於僵局，難以做出選擇而選擇逃避。試圖在對立觀點中尋求平衡。",
+    "keywords_reversed": ["做出決定", "真相大白", "困境解除", "優柔寡斷", "壓力"],
+    "meaning_reversed": "可能即將做出決定、看清真相，或因猶豫不決而感到壓力。"
+  },
+  {
+    "id": 52,
+    "name": "寶劍三 (Three of Swords)",
+    "image": "images/swords_03.jpg",
+    "keywords_upright": ["心碎", "痛苦", "悲傷", "分離", "真相的刺痛", "失落"],
+    "meaning_upright": "經歷心碎、痛苦或悲傷。真相可能帶來傷害，但也是療癒的開始。",
+    "keywords_reversed": ["療癒", "原諒", "釋放痛苦", "克服悲傷", "接受現實"],
+    "meaning_reversed": "開始從傷痛中復原，學會原諒和釋放過去的痛苦。"
+  },
+  {
+    "id": 53,
+    "name": "寶劍四 (Four of Swords)",
+    "image": "images/swords_04.jpg",
+    "keywords_upright": ["休息", "沉思", "恢復", "靜止", "休養", "準備"],
+    "meaning_upright": "需要休息、沉澱思緒以恢復精力。暫停行動，為下一步做準備。",
+    "keywords_reversed": ["停滯", "耗盡", "被迫休息", "逃避", "孤立"],
+    "meaning_reversed": "可能因精疲力竭而被迫停止，或因逃避而陷入停滯。"
+  },
+  {
+    "id": 54,
+    "name": "寶劍五 (Five of Swords)",
+    "image": "images/swords_05.jpg",
+    "keywords_upright": ["衝突", "失敗", "屈辱", "代價高昂的勝利", "失落", "敵意"],
+    "meaning_upright": "經歷衝突後的失敗感或屈辱。即使獲勝也可能付出巨大代價。",
+    "keywords_reversed": ["和解", "結束衝突", "釋放怨恨", "雙贏", "道歉"],
+    "meaning_reversed": "有機會和解、結束衝突，或從失敗的陰影中走出來。"
+  },
+  {
+    "id": 55,
+    "name": "寶劍六 (Six of Swords)",
+    "image": "images/swords_06.jpg",
+    "keywords_upright": ["過渡", "離開困境", "旅行", "釋懷", "尋求平靜", "療傷"],
+    "meaning_upright": "從困難的處境中逐漸過渡到較平靜的狀態。可能是實際或心靈的旅行。",
+    "keywords_reversed": ["滯留", "困境加劇", "不願離開", "回歸舊有問題", "抵抗"],
+    "meaning_reversed": "可能無法順利離開困境，或不願放下過去而滯留原地。"
+  },
+  {
+    "id": 56,
+    "name": "寶劍七 (Seven of Swords)",
+    "image": "images/swords_07.jpg",
+    "keywords_upright": ["欺騙", "策略", "逃避", "不誠實", "捷徑", "隱瞞"],
+    "meaning_upright": "可能涉及欺騙、不誠實或試圖走捷徑。需要謹慎行事或面對真相。",
+    "keywords_reversed": ["坦白", "面對現實", "放棄欺騙", "被揭穿", "良心不安"],
+    "meaning_reversed": "可能選擇坦誠、面對後果，或欺騙的行為被揭露。"
+  },
+  {
+    "id": 57,
+    "name": "寶劍八 (Eight of Swords)",
+    "image": "images/swords_08.jpg",
+    "keywords_upright": ["受困", "限制", "自我設限", "無助感", "恐懼", "孤立"],
+    "meaning_upright": "感到被困住、受到限制，但很多時候是自我設限。需要改變觀點。",
+    "keywords_reversed": ["釋放", "自由", "克服恐懼", "找到出路", "掌握力量"],
+    "meaning_reversed": "意識到限制來自內心，開始找到掙脫束縛的方法和力量。"
+  },
+  {
+    "id": 58,
+    "name": "寶劍九 (Nine of Swords)",
+    "image": "images/swords_09.jpg",
+    "keywords_upright": ["焦慮", "恐懼", "噩夢", "擔憂", "壓力", "失眠"],
+    "meaning_upright": "深夜的焦慮、恐懼和擔憂，可能導致失眠或噩夢。壓力巨大。",
+    "keywords_reversed": ["恐懼減輕", "找到希望", "克服焦慮", "尋求幫助", "面對現實"],
+    "meaning_reversed": "焦慮和恐懼開始減輕，可能尋求幫助或找到解決問題的方法。"
+  },
+  {
+    "id": 59,
+    "name": "寶劍十 (Ten of Swords)",
+    "image": "images/swords_10.jpg",
+    "keywords_upright": ["終結", "失敗", "谷底", "痛苦的結束", "背叛", "投降"],
+    "meaning_upright": "痛苦的終結，到達谷底。可能經歷失敗或背叛，但也是重新開始的契機。",
+    "keywords_reversed": ["復原", "從谷底反彈", "一線生機", "釋放過去", "接受"],
+    "meaning_reversed": "最壞的時期已過，開始緩慢復原，從失敗中學習並重新站起。"
+  },
+  {
+    "id": 60,
+    "name": "寶劍侍者 (Page of Swords)",
+    "image": "images/swords_page.jpg",
+    "keywords_upright": ["好奇", "警覺", "新想法", "溝通", "學習", "真理"],
+    "meaning_upright": "充滿好奇心，渴望學習和溝通。帶來新的想法或需要警覺的消息。",
+    "keywords_reversed": ["八卦", "言辭傷人", "缺乏計畫", "衝動發言", "誤解"],
+    "meaning_reversed": "可能說話不經思考、散播謠言，或想法缺乏深度和計畫。"
+  },
+  {
+    "id": 61,
+    "name": "寶劍騎士 (Knight of Swords)",
+    "image": "images/swords_knight.jpg",
+    "keywords_upright": ["行動迅速", "果斷", "衝動", "專注", "野心", "挑戰"],
+    "meaning_upright": "行動迅速、果斷且專注於目標。充滿野心，勇於迎接挑戰。",
+    "keywords_reversed": ["魯莽", "攻擊性", "衝動", "計劃失敗", "缺乏方向"],
+    "meaning_reversed": "可能行動過於魯莽、帶有攻擊性，或因缺乏計畫而失敗。"
+  },
+  {
+    "id": 62,
+    "name": "寶劍皇后 (Queen of Swords)",
+    "image": "images/swords_queen.jpg",
+    "keywords_upright": ["獨立", "智慧", "清晰", "直接", "誠實", "界線"],
+    "meaning_upright": "思路清晰、獨立且誠實的女性。界線分明，能夠做出公正的判斷。",
+    "keywords_reversed": ["刻薄", "冷漠", "苦澀", "孤立", "偏見", "過度批判"],
+    "meaning_reversed": "可能變得過於尖銳、冷漠，或因過去的傷害而心懷苦澀。"
+  },
+  {
+    "id": 63,
+    "name": "寶劍國王 (King of Swords)",
+    "image": "images/swords_king.jpg",
+    "keywords_upright": ["權威", "智力", "真理", "公正", "清晰", "領導"],
+    "meaning_upright": "運用智力和權威來追求真理和公正。思路清晰、有原則的領導者。",
+    "keywords_reversed": ["獨裁", "冷酷", "濫用權力", "操縱", "判斷錯誤"],
+    "meaning_reversed": "可能變得冷酷無情、濫用權力，或做出帶有偏見的錯誤判斷。"
+  },
+  {
+    "id": 64,
+    "name": "錢幣一 (Ace of Pentacles)",
+    "image": "images/pentacles_ace.jpg",
+    "keywords_upright": ["新機會", "豐盛", "穩定", "實現", "財富", "紮根"],
+    "meaning_upright": "物質或財務上的新機會，帶來穩定和豐盛的潛力。紮實的開始。",
+    "keywords_reversed": ["錯失機會", "財務損失", "計劃不周", "不穩定", "延遲"],
+    "meaning_reversed": "可能錯失了財務機會，計劃不夠周全，或感到基礎不穩定。"
+  },
+  {
+    "id": 65,
+    "name": "錢幣二 (Two of Pentacles)",
+    "image": "images/pentacles_02.jpg",
+    "keywords_upright": ["平衡", "適應", " juggling", "優先順序", "彈性", "變動"],
+    "meaning_upright": "試圖在多個責任或選擇中取得平衡。需要靈活適應變化。",
+    "keywords_reversed": ["失衡", "混亂", "壓力過大", "決策失誤", "財務困難"],
+    "meaning_reversed": "可能因試圖兼顧太多而失衡，感到壓力巨大或做出錯誤決定。"
+  },
+  {
+    "id": 66,
+    "name": "錢幣三 (Three of Pentacles)",
+    "image": "images/pentacles_03.jpg",
+    "keywords_upright": ["合作", "團隊", "技能", "學習", "品質", "規劃"],
+    "meaning_upright": "透過團隊合作和專業技能取得進展。注重品質和細節的規劃。",
+    "keywords_reversed": ["缺乏合作", "技能不足", "品質低劣", "目標不合", "停滯"],
+    "meaning_reversed": "可能團隊合作不順、缺乏必要的技能，或工作品質不佳。"
+  },
+  {
+    "id": 67,
+    "name": "錢幣四 (Four of Pentacles)",
+    "image": "images/pentacles_04.jpg",
+    "keywords_upright": ["保守", "控制", "穩定", "安全感", "佔有", "儲蓄"],
+    "meaning_upright": "緊握所擁有的，追求穩定和安全感。可能過於保守或吝嗇。",
+    "keywords_reversed": ["慷慨", "放下", "風險", "揮霍", "不安全感", "失去控制"],
+    "meaning_reversed": "可能開始變得慷慨、願意放下控制，或因害怕失去而感到不安。"
+  },
+  {
+    "id": 68,
+    "name": "錢幣五 (Five of Pentacles)",
+    "image": "images/pentacles_05.jpg",
+    "keywords_upright": ["貧困", "困難", "失落", "孤立", "匱乏", "尋求幫助"],
+    "meaning_upright": "經歷財務或物質上的困難，感到匱乏和孤立。可能需要尋求幫助。",
+    "keywords_reversed": ["復甦", "找到支持", "脫離困境", "希望", "改善"],
+    "meaning_reversed": "情況開始好轉，可能找到支持或資源，逐漸走出困境。"
+  },
+  {
+    "id": 69,
+    "name": "錢幣六 (Six of Pentacles)",
+    "image": "images/pentacles_06.jpg",
+    "keywords_upright": ["慷慨", "慈善", "分享", "給予與接受", "平衡", "資源"],
+    "meaning_upright": "慷慨地給予或接受幫助。代表資源的平衡流動與分享。",
+    "keywords_reversed": ["吝嗇", "債務", "不平等", "利用", "索取"],
+    "meaning_reversed": "可能資源分配不均、欠下債務，或關係中存在不平等的索取。"
+  },
+  {
+    "id": 70,
+    "name": "錢幣七 (Seven of Pentacles)",
+    "image": "images/pentacles_07.jpg",
+    "keywords_upright": ["耐心", "評估", "投資", "回報", "耕耘", "等待"],
+    "meaning_upright": "評估長期投資的成果。需要耐心等待耕耘的回報。",
+    "keywords_reversed": ["缺乏耐心", "回報不佳", "半途而廢", "浪費資源", "短視"],
+    "meaning_reversed": "可能因缺乏耐心而過早放棄，或投資回報不如預期。"
+  },
+  {
+    "id": 71,
+    "name": "錢幣八 (Eight of Pentacles)",
+    "image": "images/pentacles_08.jpg",
+    "keywords_upright": ["技能", "學習", "專注", "勤奮", "品質", "學徒"],
+    "meaning_upright": "專注於學習和精進技能。透過勤奮工作追求高品質的成果。",
+    "keywords_reversed": ["缺乏專注", "馬虎", "半途而廢", "才能平庸", "重複枯燥"],
+    "meaning_reversed": "可能工作不夠專心、品質馬虎，或對重複性的工作感到厭倦。"
+  },
+  {
+    "id": 72,
+    "name": "錢幣九 (Nine of Pentacles)",
+    "image": "images/pentacles_09.jpg",
+    "keywords_upright": ["獨立", "富足", "成就", "自律", "享受成果", "優雅"],
+    "meaning_upright": "憑藉自身努力達到獨立與富足。享受辛勤工作的成果，生活優雅。",
+    "keywords_reversed": ["依賴", "空虛", "揮霍", "孤芳自賞", "不滿足"],
+    "meaning_reversed": "可能外表光鮮但內心空虛，過度揮霍，或無法真正享受成果。"
+  },
+  {
+    "id": 73,
+    "name": "錢幣十 (Ten of Pentacles)",
+    "image": "images/pentacles_10.jpg",
+    "keywords_upright": ["傳承", "財富", "家庭", "穩定", "基業", "長久"],
+    "meaning_upright": "代表世代相傳的財富、穩固的家庭基礎和長久的穩定。",
+    "keywords_reversed": ["財務損失", "家庭糾紛", "基礎不穩", "揮霍家產", "斷裂"],
+    "meaning_reversed": "可能面臨財務損失、家庭關係不和，或穩固的基礎受到動搖。"
+  },
+  {
+    "id": 74,
+    "name": "錢幣侍者 (Page of Pentacles)",
+    "image": "images/pentacles_page.jpg",
+    "keywords_upright": ["學習", "務實", "新機會", "紮根", "好奇", "勤奮"],
+    "meaning_upright": "渴望學習新技能或抓住務實的新機會。勤奮且腳踏實地。",
+    "keywords_reversed": ["缺乏計畫", "懶惰", "錯失機會", "半途而廢", "不切實際"],
+    "meaning_reversed": "可能想法很多但缺乏行動，懶惰，或錯失了實際的發展機會。"
+  },
+  {
+    "id": 75,
+    "name": "錢幣騎士 (Knight of Pentacles)",
+    "image": "images/pentacles_knight.jpg",
+    "keywords_upright": ["可靠", "勤奮", "堅持", "耐心", "務實", "按部就班"],
+    "meaning_upright": "可靠、勤奮且有耐心。按部就班地完成任務，值得信賴。",
+    "keywords_reversed": ["固執", "沉悶", "懶惰", "缺乏動力", "停滯不前"],
+    "meaning_reversed": "可能過於固執、缺乏彈性，或因懶惰而停滯不前。"
+  },
+  {
+    "id": 76,
+    "name": "錢幣皇后 (Queen of Pentacles)",
+    "image": "images/pentacles_queen.jpg",
+    "keywords_upright": ["務實", "滋養", "穩定", "照顧者", "豐盛", "腳踏實地"],
+    "meaning_upright": "務實、可靠且善於照顧他人。提供穩定和滋養，腳踏實地。",
+    "keywords_reversed": ["過度操勞", "物質主義", "窒息的愛", "不安全感", "自我犧牲"],
+    "meaning_reversed": "可能過於關注物質、過度操勞，或在照顧他人時失去自我。"
+  },
+  {
+    "id": 77,
+    "name": "錢幣國王 (King of Pentacles)",
+    "image": "images/pentacles_king.jpg",
+    "keywords_upright": ["富足", "成功", "可靠", "領導", "務實", "穩定"],
+    "meaning_upright": "事業成功、可靠且務實的領導者。享受物質的豐盛與穩定。",
+    "keywords_reversed": ["貪婪", "僵化", "控制慾", "唯利是圖", "不擇手段"],
+    "meaning_reversed": "可能變得過於貪婪、僵化，或為了追求財富而不擇手段。"
+  }
+]
