@@ -1,9 +1,13 @@
-// --- DOM 元素獲取 (部分更新) ---
+// script.js
+
+// --- DOM 元素獲取 (部分在函數內動態獲取) ---
 const drawButton = document.getElementById('draw-button');
 const cutButton = document.getElementById('cut-button');
-let cardSlots = document.querySelectorAll('.card-slot'); // 可能不需要再全域，看 revealCard 邏輯
-let cardImages = document.querySelectorAll('.card-slot img');
-let cardMeanings = document.querySelectorAll('.card-meaning');
+// Global NodeLists for cardImages and cardMeanings will be populated dynamically
+// or elements will be passed directly to functions that need them.
+let cardImagesNodeList; // Will be populated by document.querySelectorAll in relevant functions
+let cardMeaningsNodeList; // Will be populated by document.querySelectorAll in relevant functions
+
 const topicRadios = document.querySelectorAll('input[name="topic"]');
 const userQuestionInput = document.getElementById('user-question');
 
@@ -11,25 +15,24 @@ const guidanceInitial = document.getElementById('guidance-initial');
 const guidanceShuffle = document.getElementById('guidance-shuffle');
 const guidanceReveal = document.getElementById('guidance-reveal');
 const footerText = document.getElementById('footer-text');
-const loadingMessage = document.getElementById('loading-message'); // New
+const loadingMessage = document.getElementById('loading-message');
 
-// New output sections
 const conciseInterpretationSection = document.getElementById('concise-interpretation-section');
 const conciseInterpretationOutput = document.getElementById('concise-interpretation-output');
 const detailedAdviceSection = document.getElementById('detailed-advice-section');
 const detailedAdviceOutput = document.getElementById('detailed-advice-output');
-const getDetailedAdviceButton = document.getElementById('get-detailed-advice-button'); // New
+const getDetailedAdviceButton = document.getElementById('get-detailed-advice-button');
 
 let tarotData = [];
-let currentDrawnCardsDetails = []; // Stores { id, name, image, isReversed, keywords_upright, keywords_reversed, meaning_upright, meaning_reversed }
+let currentDrawnCardsDetails = []; // Stores { id, name, image, isReversed, keywords_upright, keywords_reversed, meaning_upright, meaning_reversed, revealed }
 let shuffledIndexes = [];
-const cardBackSrc = 'images/card_back.jpg'; // Make sure this path is correct
-let ritualState = 'initial'; // initial, shuffling, shuffled, cut_done, revealed_all, fetching_concise, concise_done, fetching_detailed, detailed_done
+const cardBackSrc = 'images/card_back.jpg'; // Make sure this path is correct relative to index.html
+let ritualState = 'initial'; // initial, shuffling, shuffled, cut_done, revealed_all, fetching_concise, concise_done, fetching_detailed, detailed_done, error
 
-let storedConciseInterpretation = ""; // To store the first interpretation for the second API call
+let storedConciseInterpretation = ""; // To store the first interpretation
 
 // --- 資料載入 ---
-fetch('tarot-data.json')
+fetch('tarot-data.json') // Assumes tarot-data.json is in the same directory as index.html
     .then(response => {
         if (!response.ok) {
             throw new Error('Network response was not ok ' + response.statusText);
@@ -65,15 +68,22 @@ function shuffleDeck(deck) {
 }
 
 function cutTheDeck(deckIndexes) {
-    if (deckIndexes.length < 10) return deckIndexes;
-    const minCut = 5;
-    const maxCut = deckIndexes.length - 5;
+    if (deckIndexes.length < 10) return deckIndexes; // If too few cards, don't cut
+    const minCut = Math.min(5, Math.floor(deckIndexes.length / 3)); // Adjust min cut point
+    const maxCut = deckIndexes.length - minCut;
+    if (maxCut <= minCut) return deckIndexes; // Not enough range to cut meaningfully
+
     const cutPoint = Math.floor(Math.random() * (maxCut - minCut)) + minCut;
     console.log(`命運之切點: ${cutPoint}`);
     return deckIndexes.slice(cutPoint).concat(deckIndexes.slice(0, cutPoint));
 }
 
 function finalizeDrawnCards(finalDeckIndexes) {
+    if (!tarotData || tarotData.length === 0) {
+        console.error("Tarot data not loaded for finalizeDrawnCards.");
+        currentDrawnCardsDetails = [];
+        return;
+    }
     if (finalDeckIndexes.length < 3) {
         console.error("牌堆數量不足");
         currentDrawnCardsDetails = [];
@@ -81,74 +91,102 @@ function finalizeDrawnCards(finalDeckIndexes) {
     }
     let drawnIndexes = finalDeckIndexes.slice(0, 3);
     currentDrawnCardsDetails = drawnIndexes.map(index => {
+        // Ensure index is within bounds of tarotData
+        if (index < 0 || index >= tarotData.length) {
+            console.error(`Invalid card index: ${index}`);
+            return null; // Or some placeholder for an invalid card
+        }
         const cardData = tarotData[index];
         const isReversed = Math.random() < 0.5;
         return {
             id: cardData.id,
             name: cardData.name,
-            image: cardData.image, // Local image path for display
+            image: cardData.image,
             isReversed: isReversed,
             keywords: isReversed ? cardData.keywords_reversed : cardData.keywords_upright,
             meaning: isReversed ? cardData.meaning_reversed : cardData.meaning_upright,
-            // Send all relevant data, so backend doesn't need tarot-data.json
             keywords_upright: cardData.keywords_upright,
             keywords_reversed: cardData.keywords_reversed,
             meaning_upright: cardData.meaning_upright,
             meaning_reversed: cardData.meaning_reversed,
-            revealed: false // For local UI state
+            revealed: false
         };
-    });
+    }).filter(card => card !== null); // Filter out any nulls from invalid indexes
+
+    if (currentDrawnCardsDetails.length < 3) {
+        console.error("Could not finalize 3 valid cards.");
+        // Handle this scenario, perhaps by alerting user or resetting
+    }
     console.log("最終確定的三張牌:", currentDrawnCardsDetails.map(c => `${c.name} (${c.isReversed ? '逆位' : '正位'})`));
 }
 
 function displayCardBacksInitial() {
-    cardImages = document.querySelectorAll('.card-slot img'); // Re-select in case DOM changes
-    cardMeanings = document.querySelectorAll('.card-meaning');
+    // Re-query elements each time this function is called for safety
+    const currentCardImages = document.querySelectorAll('.card-slot img');
+    const currentCardMeanings = document.querySelectorAll('.card-meaning');
 
-    cardImages.forEach((img, index) => {
+    currentCardImages.forEach((img, index) => {
         img.src = cardBackSrc;
         img.alt = `星辰牌陣 位置 ${index + 1}`;
         img.classList.remove('revealed', 'reversed');
         img.style.cursor = 'default';
-        if(cardMeanings[index]) cardMeanings[index].innerHTML = '';
-    });
-    // Clear previous results and hide sections
-    conciseInterpretationSection.style.display = 'none';
-    conciseInterpretationOutput.textContent = '';
-    detailedAdviceSection.style.display = 'none';
-    detailedAdviceOutput.textContent = '';
-    getDetailedAdviceButton.style.display = 'none';
-    footerText.style.display = 'none';
-    loadingMessage.style.display = 'none';
-}
-
-function enableCardClicks() {
-    console.log("enableCardClicks: Start"); // Debug
-    cardSlots = document.querySelectorAll('.card-slot'); // Re-select
-    cardImages = document.querySelectorAll('.card-slot img'); // Re-select at the beginning
-    cardMeanings = document.querySelectorAll('.card-meaning'); // Re-select at the beginning
-    console.log(`enableCardClicks: Initial query - cardSlots: ${cardSlots.length}, cardImages: ${cardImages.length}, cardMeanings: ${cardMeanings.length}`); // Debug
-
-    cardSlots.forEach((slot, index) => {
-        const imgElement = cardImages[index];
-        if (imgElement && imgElement.src.includes(cardBackSrc) && ritualState === 'cut_done') {
-            imgElement.style.cursor = 'pointer';
-            // Clone and replace to remove old listeners, then add new one
-            const newImgElement = imgElement.cloneNode(true);
-            imgElement.parentNode.replaceChild(newImgElement, imgElement);
-            // Add event listener to the NEW cloned element
-            newImgElement.addEventListener('click', () => revealCard(index), { once: true });
-        } else if (imgElement) {
-            imgElement.style.cursor = 'default';
+        // Ensure cardMeanings element exists for this index
+        if(currentCardMeanings && currentCardMeanings[index]) {
+            currentCardMeanings[index].innerHTML = '';
         }
     });
 
-    // Update references AFTER cloning and replacing all relevant elements
-    cardImages = document.querySelectorAll('.card-slot img');
-    cardMeanings = document.querySelectorAll('.card-meaning'); // <--- ADD THIS LINE
-    console.log(`enableCardClicks: Final re-query - cardImages: ${cardImages.length}, cardMeanings: ${cardMeanings.length}`); // Debug
-    console.log("enableCardClicks: End"); // Debug
+    // Clear previous results and hide sections
+    if (conciseInterpretationSection) conciseInterpretationSection.style.display = 'none';
+    if (conciseInterpretationOutput) conciseInterpretationOutput.textContent = '';
+    if (detailedAdviceSection) detailedAdviceSection.style.display = 'none';
+    if (detailedAdviceOutput) detailedAdviceOutput.textContent = '';
+    if (getDetailedAdviceButton) getDetailedAdviceButton.style.display = 'none';
+    if (footerText) footerText.style.display = 'none';
+    if (loadingMessage) loadingMessage.style.display = 'none';
 }
+
+function enableCardClicks() {
+    console.log("enableCardClicks: Start");
+    const allCardSlots = document.querySelectorAll('.card-slot'); // Get all .card-slot divs
+    console.log(`enableCardClicks: Found ${allCardSlots.length} card slots.`);
+
+    allCardSlots.forEach((currentCardSlotDiv, slotIndex) => {
+        const originalImgElement = currentCardSlotDiv.querySelector('img');
+
+        let associatedMeaningElement = null;
+        const cardPositionDiv = currentCardSlotDiv.closest('.card-position');
+        if (cardPositionDiv) {
+            associatedMeaningElement = cardPositionDiv.querySelector('.card-meaning');
+        }
+
+        console.log(`enableCardClicks: Processing slotIndex ${slotIndex}. originalImgElement: ${originalImgElement}, associatedMeaningElement: ${associatedMeaningElement}`);
+
+        if (originalImgElement && associatedMeaningElement && originalImgElement.src.includes(cardBackSrc) && ritualState === 'cut_done') {
+            originalImgElement.style.cursor = 'pointer';
+
+            const newClonedImgElement = originalImgElement.cloneNode(true);
+            originalImgElement.parentNode.replaceChild(newClonedImgElement, originalImgElement);
+
+            newClonedImgElement.addEventListener('click', () => {
+                // Pass the NEW cloned image, its associated meaning element, AND the logical index
+                revealCard(slotIndex, newClonedImgElement, associatedMeaningElement);
+            }, { once: true });
+
+        } else if (originalImgElement) {
+            originalImgElement.style.cursor = 'default';
+        } else {
+            console.error(`enableCardClicks: Could not find img or related elements for slotIndex ${slotIndex}. CardPositionDiv:`, cardPositionDiv);
+        }
+    });
+    console.log("enableCardClicks: Event listeners attached.");
+    // These global NodeLists are primarily for reference by other functions if needed,
+    // but revealCard now uses direct references.
+    cardImagesNodeList = document.querySelectorAll('.card-slot img');
+    cardMeaningsNodeList = document.querySelectorAll('.card-meaning');
+    console.log(`enableCardClicks: Final query - cardImages: ${cardImagesNodeList.length}, cardMeanings: ${cardMeaningsNodeList.length}`);
+}
+
 
 function checkAllCardsRevealed() {
     if (currentDrawnCardsDetails.length !== 3) return false;
@@ -157,15 +195,17 @@ function checkAllCardsRevealed() {
 
 function getUserInputs() {
     let selectedTopic = null;
-    topicRadios.forEach(radio => { if (radio.checked) selectedTopic = radio.value; });
-    const question = userQuestionInput.value.trim();
+    if (topicRadios) { // Check if topicRadios exist
+        topicRadios.forEach(radio => { if (radio.checked) selectedTopic = radio.value; });
+    }
+    const question = userQuestionInput ? userQuestionInput.value.trim() : "";
     return { topic: selectedTopic, question: question };
 }
 
-async function revealCard(index) {
+// MODIFIED revealCard to accept direct element references
+async function revealCard(index, clickedImgElement, associatedMeaningElement) {
     console.log(`揭示第 ${index + 1} 道星光...`);
-    console.log(`revealCard: Called for index ${index}`);
-    console.log(`revealCard: current cardImages length: ${cardImages.length}, cardMeanings length: ${cardMeanings.length}`); // For debugging
+    console.log(`revealCard: Called for index ${index}. Passed imgElement valid: ${!!clickedImgElement}, Passed meaningElement valid: ${!!associatedMeaningElement}`);
 
     if (ritualState !== 'cut_done') {
         console.warn("儀式步驟錯誤，無法揭示。");
@@ -177,34 +217,16 @@ async function revealCard(index) {
     }
 
     const card = currentDrawnCardsDetails[index];
-    const imgElement = cardImages[index]; // Assumes cardImages is correctly populated and fresh
+    const imgElement = clickedImgElement; // Use passed element
+    const meaningElement = associatedMeaningElement; // Use passed element
 
-    // --- MODIFIED WAY TO GET meaningElement ---
-    let meaningElement = null;
-    if (imgElement) {
-        // Navigate from the imgElement to its corresponding .card-meaning sibling
-        // imgElement -> parent (.card-slot) -> parent (.card-position) -> child (.card-meaning)
-        const cardPositionDiv = imgElement.closest('.card-position');
-        if (cardPositionDiv) {
-            meaningElement = cardPositionDiv.querySelector('.card-meaning');
-        }
-    }
-    // --- END MODIFICATION ---
-
-    // Now the check:
     if (!imgElement || !meaningElement) {
-        console.error(`無法找到索引 ${index} 的 DOM 元素。imgElement: ${imgElement}, meaningElement: ${meaningElement}`);
-        // Log more details for debugging
-        if (imgElement) { // If imgElement exists but meaningElement doesn't
-             const cardPositionDiv = imgElement.closest('.card-position');
-             console.log("Parent .card-position for imgElement:", cardPositionDiv);
-             if(cardPositionDiv) console.log("Children of .card-position:", cardPositionDiv.children);
-        }
+        console.error(`無法找到索引 ${index} 的 DOM 元素 (來自傳遞的參數)。imgElement: ${imgElement}, meaningElement: ${meaningElement}`);
         return;
     }
 
     console.log(`揭示: ${card.name} (${card.isReversed ? '逆位' : '正位'})`);
-    imgElement.src = card.image;
+    imgElement.src = card.image; // Use local image path from card data
     imgElement.alt = card.name;
     if (card.isReversed) { imgElement.classList.add('reversed'); } else { imgElement.classList.remove('reversed'); }
 
@@ -219,14 +241,16 @@ async function revealCard(index) {
     if (checkAllCardsRevealed()) {
         console.log("所有星光已被揭示，準備請求初步解讀...");
         ritualState = 'fetching_concise';
-        loadingMessage.textContent = "正在獲取初步解讀...";
-        loadingMessage.style.display = 'block';
-        guidanceReveal.style.display = 'none';
+        if (loadingMessage) {
+            loadingMessage.textContent = "正在獲取初步解讀...";
+            loadingMessage.style.display = 'block';
+        }
+        if (guidanceReveal) guidanceReveal.style.display = 'none';
 
         const userInputs = getUserInputs();
         if (!userInputs.topic || !userInputs.question) {
             alert("請確保已選擇探尋領域並低語您的探問！");
-            loadingMessage.style.display = 'none';
+            if (loadingMessage) loadingMessage.style.display = 'none';
             ritualState = 'cut_done'; // Revert state
             return;
         }
@@ -250,31 +274,32 @@ async function revealCard(index) {
 // --- API Call Functions ---
 async function fetchConciseInterpretation(requestData) {
     try {
-        // Replace with your actual Netlify function endpoint
-        const response = await fetch('/.netlify/functions/getConciseInterpretation', {
+        const response = await fetch('/.netlify/functions/getConciseInterpretation', { // Ensure this path is correct for Netlify
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(requestData)
         });
-        loadingMessage.style.display = 'none';
+        if (loadingMessage) loadingMessage.style.display = 'none';
 
         if (!response.ok) {
-            const errorData = await response.json().catch(() => ({ detail: '無法解析錯誤回應' }));
-            throw new Error(`API 請求失敗: ${response.status} ${response.statusText}. ${errorData.detail || ''}`);
+            const errorData = await response.json().catch(() => ({ error: '無法解析錯誤回應' }));
+            throw new Error(`API 請求失敗: ${response.status} ${response.statusText}. ${errorData.error || ''}`);
         }
         const data = await response.json();
-        conciseInterpretationOutput.textContent = data.interpretation;
-        storedConciseInterpretation = data.interpretation; // Store for later
-        conciseInterpretationSection.style.display = 'block';
-        getDetailedAdviceButton.style.display = 'inline-block'; // Show button
-        getDetailedAdviceButton.disabled = false;
-        footerText.style.display = 'block';
+        if (conciseInterpretationOutput) conciseInterpretationOutput.textContent = data.interpretation;
+        storedConciseInterpretation = data.interpretation;
+        if (conciseInterpretationSection) conciseInterpretationSection.style.display = 'block';
+        if (getDetailedAdviceButton) {
+            getDetailedAdviceButton.style.display = 'inline-block';
+            getDetailedAdviceButton.disabled = false;
+        }
+        if (footerText) footerText.style.display = 'block';
         ritualState = 'concise_done';
     } catch (error) {
         console.error('獲取初步解讀失敗:', error);
-        conciseInterpretationOutput.textContent = `獲取初步解讀時發生錯誤：${error.message}`;
-        conciseInterpretationSection.style.display = 'block'; // Show error in the section
-        ritualState = 'error'; // Or revert to 'revealed_all' to allow retry?
+        if (conciseInterpretationOutput) conciseInterpretationOutput.textContent = `獲取初步解讀時發生錯誤：${error.message}`;
+        if (conciseInterpretationSection) conciseInterpretationSection.style.display = 'block';
+        ritualState = 'error';
     }
 }
 
@@ -284,19 +309,22 @@ async function fetchDetailedAdvice() {
         return;
     }
     ritualState = 'fetching_detailed';
-    loadingMessage.textContent = "正在獲取詳細建議...";
-    loadingMessage.style.display = 'block';
-    getDetailedAdviceButton.disabled = true;
-    conciseInterpretationSection.style.display = 'block'; // Keep concise visible
-    detailedAdviceSection.style.display = 'none'; // Hide old detailed advice if any
-    detailedAdviceOutput.textContent = '';
+    if (loadingMessage) {
+        loadingMessage.textContent = "正在獲取詳細建議...";
+        loadingMessage.style.display = 'block';
+    }
+    if (getDetailedAdviceButton) getDetailedAdviceButton.disabled = true;
+    // Keep concise visible, hide old detailed advice if any
+    // if (conciseInterpretationSection) conciseInterpretationSection.style.display = 'block'; // Already visible
+    if (detailedAdviceSection) detailedAdviceSection.style.display = 'none';
+    if (detailedAdviceOutput) detailedAdviceOutput.textContent = '';
 
 
-    const userInputs = getUserInputs(); // Get fresh inputs in case they changed (though unlikely)
+    const userInputs = getUserInputs();
     const requestData = {
         topic: userInputs.topic,
         question: userInputs.question,
-        drawn_cards: currentDrawnCardsDetails.map(c => ({ // Send detailed card info again
+        drawn_cards: currentDrawnCardsDetails.map(c => ({
             name: c.name,
             isReversed: c.isReversed,
             keywords: c.keywords,
@@ -309,105 +337,113 @@ async function fetchDetailedAdvice() {
     };
 
     try {
-        // Replace with your actual Netlify function endpoint
-        const response = await fetch('/.netlify/functions/getDetailedAdvice', {
+        const response = await fetch('/.netlify/functions/getDetailedAdvice', { // Ensure this path is correct
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(requestData)
         });
-        loadingMessage.style.display = 'none';
+        if (loadingMessage) loadingMessage.style.display = 'none';
 
         if (!response.ok) {
-            const errorData = await response.json().catch(() => ({ detail: '無法解析錯誤回應' }));
-            throw new Error(`API 請求失敗: ${response.status} ${response.statusText}. ${errorData.detail || ''}`);
+            const errorData = await response.json().catch(() => ({ error: '無法解析錯誤回應' }));
+            throw new Error(`API 請求失敗: ${response.status} ${response.statusText}. ${errorData.error || ''}`);
         }
         const data = await response.json();
-        detailedAdviceOutput.textContent = data.advice;
-        detailedAdviceSection.style.display = 'block';
+        if (detailedAdviceOutput) detailedAdviceOutput.textContent = data.advice;
+        if (detailedAdviceSection) detailedAdviceSection.style.display = 'block';
         ritualState = 'detailed_done';
     } catch (error) {
         console.error('獲取詳細建議失敗:', error);
-        detailedAdviceOutput.textContent = `獲取詳細建議時發生錯誤：${error.message}`;
-        detailedAdviceSection.style.display = 'block'; // Show error
+        if (detailedAdviceOutput) detailedAdviceOutput.textContent = `獲取詳細建議時發生錯誤：${error.message}`;
+        if (detailedAdviceSection) detailedAdviceSection.style.display = 'block';
         ritualState = 'error';
     } finally {
-        getDetailedAdviceButton.disabled = false; // Re-enable button
+        if (getDetailedAdviceButton) getDetailedAdviceButton.disabled = false;
     }
 }
 
 
 // --- 事件監聽 ---
-drawButton.addEventListener('click', () => {
-    console.log("啟動儀式...");
-    if (!tarotData || tarotData.length === 0) {
-        alert("星辰尚未完全對齊，請稍候或刷新。"); return;
-    }
-    const userInputs = getUserInputs();
-    if (!userInputs.topic || !userInputs.question) {
-         alert("請先選擇探尋領域並低語您的探問，再呼喚命運。"); return;
-    }
+if (drawButton) {
+    drawButton.addEventListener('click', () => {
+        console.log("啟動儀式...");
+        if (!tarotData || tarotData.length === 0) {
+            alert("星辰尚未完全對齊，請稍候或刷新。"); return;
+        }
+        const userInputs = getUserInputs();
+        if (!userInputs.topic || !userInputs.question) {
+             alert("請先選擇探尋領域並低語您的探問，再呼喚命運。"); return;
+        }
 
-    ritualState = 'shuffling';
-    drawButton.disabled = true;
-    drawButton.textContent = '感應中...';
-    guidanceInitial.style.display = 'none';
-    guidanceShuffle.style.display = 'none';
-    guidanceReveal.style.display = 'none';
-    // Hide result sections on new draw
-    conciseInterpretationSection.style.display = 'none';
-    detailedAdviceSection.style.display = 'none';
-    getDetailedAdviceButton.style.display = 'none';
+        ritualState = 'shuffling';
+        drawButton.disabled = true;
+        drawButton.textContent = '感應中...';
+        if(guidanceInitial) guidanceInitial.style.display = 'none';
+        if(guidanceShuffle) guidanceShuffle.style.display = 'none';
+        if(guidanceReveal) guidanceReveal.style.display = 'none';
+        if(conciseInterpretationSection) conciseInterpretationSection.style.display = 'none';
+        if(detailedAdviceSection) detailedAdviceSection.style.display = 'none';
+        if(getDetailedAdviceButton) getDetailedAdviceButton.style.display = 'none';
 
 
-    setTimeout(() => {
-        let deckIndexes = Array.from({ length: tarotData.length }, (_, i) => i);
-        shuffledIndexes = shuffleDeck(deckIndexes);
-        console.log(`牌堆已洗牌，長度: ${shuffledIndexes.length}`);
-        displayCardBacksInitial(); // Resets card images and meanings
+        setTimeout(() => {
+            let deckIndexes = Array.from({ length: tarotData.length }, (_, i) => i);
+            shuffledIndexes = shuffleDeck(deckIndexes);
+            console.log(`牌堆已洗牌，長度: ${shuffledIndexes.length}`);
+            displayCardBacksInitial();
 
-        drawButton.style.display = 'none';
-        cutButton.style.display = 'inline-block';
-        cutButton.disabled = false;
-        guidanceInitial.textContent = "牌已洗好，請以您的直覺，進行神聖的切牌儀式...";
-        guidanceInitial.style.display = 'block';
-        ritualState = 'shuffled';
-    }, 700);
-});
+            drawButton.style.display = 'none';
+            if(cutButton) {
+                cutButton.style.display = 'inline-block';
+                cutButton.disabled = false;
+            }
+            if(guidanceInitial) {
+                guidanceInitial.textContent = "牌已洗好，請以您的直覺，進行神聖的切牌儀式...";
+                guidanceInitial.style.display = 'block';
+            }
+            ritualState = 'shuffled';
+        }, 700);
+    });
+}
 
-cutButton.addEventListener('click', () => {
-    console.log("進行命運之切...");
-    if (ritualState !== 'shuffled' || shuffledIndexes.length === 0) { return; }
+if (cutButton) {
+    cutButton.addEventListener('click', () => {
+        console.log("進行命運之切...");
+        if (ritualState !== 'shuffled' || shuffledIndexes.length === 0) { return; }
 
-    cutButton.disabled = true;
-    cutButton.textContent = '切牌中...';
-    ritualState = 'cutting';
+        cutButton.disabled = true;
+        cutButton.textContent = '切牌中...';
+        ritualState = 'cutting';
 
-    setTimeout(() => {
-        const cutDeckIndexes = cutTheDeck(shuffledIndexes);
-        finalizeDrawnCards(cutDeckIndexes); // Determines currentDrawnCardsDetails
+        setTimeout(() => {
+            const cutDeckIndexes = cutTheDeck(shuffledIndexes);
+            finalizeDrawnCards(cutDeckIndexes);
 
-        cutButton.style.display = 'none';
-        cutButton.textContent = '命運之切';
-        guidanceInitial.style.display = 'none';
-        guidanceReveal.textContent = '牌陣已成形。請逐一揭示星辰的低語...';
-        guidanceReveal.style.display = 'block';
+            cutButton.style.display = 'none';
+            cutButton.textContent = '命運之切';
+            if(guidanceInitial) guidanceInitial.style.display = 'none';
+            if(guidanceReveal) {
+                guidanceReveal.textContent = '牌陣已成形。請逐一揭示星辰的低語...';
+                guidanceReveal.style.display = 'block';
+            }
 
-        ritualState = 'cut_done';
-        enableCardClicks(); // Important to re-enable after DOM manipulation if any
-    }, 500);
-});
+            ritualState = 'cut_done';
+            enableCardClicks();
+        }, 500);
+    });
+}
 
-// Event listener for the new button
-getDetailedAdviceButton.addEventListener('click', fetchDetailedAdvice);
+if (getDetailedAdviceButton) {
+    getDetailedAdviceButton.addEventListener('click', fetchDetailedAdvice);
+}
 
 
 // --- 初始化 ---
-drawButton.disabled = true; // Disabled until tarotData is loaded
-guidanceShuffle.style.display = 'none';
-guidanceReveal.style.display = 'none';
-footerText.style.display = 'none';
-cutButton.style.display = 'none';
-// Hide result sections initially
-conciseInterpretationSection.style.display = 'none';
-detailedAdviceSection.style.display = 'none';
-getDetailedAdviceButton.style.display = 'none';
+if(drawButton) drawButton.disabled = true;
+if(guidanceShuffle) guidanceShuffle.style.display = 'none';
+if(guidanceReveal) guidanceReveal.style.display = 'none';
+if(footerText) footerText.style.display = 'none';
+if(cutButton) cutButton.style.display = 'none';
+if(conciseInterpretationSection) conciseInterpretationSection.style.display = 'none';
+if(detailedAdviceSection) detailedAdviceSection.style.display = 'none';
+if(getDetailedAdviceButton) getDetailedAdviceButton.style.display = 'none';
