@@ -343,3 +343,73 @@ button#copy-prompt-button:disabled {
     #copy-prompt-button { width: auto; }
     #llm-prompt-output { min-height: 180px; font-size: 0.9em; }
 }
+
+.interpretation-area {
+    margin-top: 40px;
+    text-align: left;
+    max-width: 700px; /* 調整寬度 */
+    margin-left: auto;
+    margin-right: auto;
+    background-color: var(--section-bg-color);
+    padding: 20px 25px;
+    border-radius: 10px;
+    border: 1px solid var(--card-border-color);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+    /* text-align: center;  如果希望裡面的按鈕也置中，可以保留或修改 */
+}
+
+.interpretation-area h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    font-family: var(--title-font);
+    color: var(--heading-color);
+}
+
+.interpretation-output {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 15px;
+    font-family: var(--body-font); /* 或者用 'Courier New' 如果想保留程式碼感 */
+    font-size: 1em; /* 調整字體大小 */
+    border: 1px solid var(--input-border-color);
+    background-color: var(--input-bg-color);
+    color: var(--text-color);
+    border-radius: 4px;
+    min-height: 150px; /* 調整最小高度 */
+    text-align: left;
+    margin-bottom: 15px;
+    white-space: pre-wrap; /* 讓文字能自動換行並保留空格和換行符 */
+    overflow-y: auto; /* 如果內容過多，允許內部滾動 */
+}
+
+#get-detailed-advice-button { /* Style the new button */
+    display: block; /* Make it block to center it if text-align:center on parent */
+    margin-left: auto;
+    margin-right: auto;
+    /* 複製原按鈕樣式 */
+    padding: 12px 28px;
+    font-size: 1.1em;
+    cursor: pointer;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    background: linear-gradient(145deg, var(--button-hover-bg), var(--button-bg-color));
+    color: var(--button-text-color);
+    border: 1px solid var(--primary-accent);
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    font-family: var(--title-font);
+    letter-spacing: 1px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+#get-detailed-advice-button:hover:not(:disabled) {
+    background: linear-gradient(145deg, var(--button-bg-color), var(--button-hover-bg));
+    box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+    transform: translateY(-2px);
+}
+
+#get-detailed-advice-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    box-shadow: none;
+}

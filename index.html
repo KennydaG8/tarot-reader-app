@@ -6,56 +6,77 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lancelot&family=Noto+Serif+TC:wght@400;700&display=swap" rel="stylesheet">
-    <title>星語密室 - 塔羅啟示</title> <link rel="stylesheet" href="style.css">
+    <title>星語密室 - 塔羅啟示</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <h1>星語密室</h1> </header>
+        <h1>星語密室</h1>
+    </header>
 
     <main>
         <p id="guidance-initial">靜下心神，深吸一口氣，專注於您心中的疑惑...</p>
 
         <div class="question-section">
             <div class="topic-selection">
-                <label>探尋領域：</label> <input type="radio" id="topic-love" name="topic" value="感情">
-                <label for="topic-love">紅塵情緣 (感情)</label> <input type="radio" id="topic-career" name="topic" value="事業">
-                <label for="topic-career">塵世旅途 (事業)</label> <input type="radio" id="topic-other" name="topic" value="其他">
-                <label for="topic-other">萬象森羅 (其他)</label> </div>
+                <label>探尋領域：</label>
+                <input type="radio" id="topic-love" name="topic" value="感情">
+                <label for="topic-love">紅塵情緣 (感情)</label>
+                <input type="radio" id="topic-career" name="topic" value="事業">
+                <label for="topic-career">塵世旅途 (事業)</label>
+                <input type="radio" id="topic-other" name="topic" value="其他">
+                <label for="topic-other">萬象森羅 (其他)</label>
+            </div>
             <div class="question-input">
-                <label for="user-question">低語您的探問：</label> <input type="text" id="user-question" placeholder="例如：指引我，關於那搖曳的情感之火..."> </div>
+                <label for="user-question">低語您的探問：</label>
+                <input type="text" id="user-question" placeholder="例如：指引我，關於那搖曳的情感之火...">
+            </div>
         </div>
 
         <p id="guidance-shuffle">選定領域並低語探問後，請呼喚命運，啟動儀式...</p>
 
-        <button id="draw-button">呼喚命運</button> <button id="cut-button" style="display: none;">命運之切</button>
+        <button id="draw-button">呼喚命運</button>
+        <button id="cut-button" style="display: none;">命運之切</button>
 
         <p id="guidance-reveal" style="display: none;">牌陣已成，請逐一揭示星辰的低語...</p>
+        <p id="loading-message" style="display: none; color: var(--primary-accent);">正在獲取星辰的啟示...</p>
+
 
         <div class="spread-container">
-            <div class="card-position">
+            <div class.card-position">
                 <div class="card-slot" id="card-slot-0">
                     <img src="images/card_back.jpg" alt="第一張牌" id="card-image-0">
                 </div>
-                <div class="position-label">往昔之影</div> <div class="card-meaning" id="card-meaning-0"></div>
+                <div class="position-label">往昔之影</div>
+                <div class="card-meaning" id="card-meaning-0"></div>
             </div>
             <div class="card-position">
                 <div class="card-slot" id="card-slot-1">
                     <img src="images/card_back.jpg" alt="第二張牌" id="card-image-1">
                 </div>
-                <div class="position-label">當下之核</div> <div class="card-meaning" id="card-meaning-1"></div>
+                <div class="position-label">當下之核</div>
+                <div class.card-meaning" id="card-meaning-1"></div>
             </div>
             <div class="card-position">
                 <div class="card-slot" id="card-slot-2">
                     <img src="images/card_back.jpg" alt="第三張牌" id="card-image-2">
                 </div>
-                <div class="position-label">未來之徑</div> <div class="card-meaning" id="card-meaning-2"></div>
+                <div class="position-label">未來之徑</div>
+                <div class="card-meaning" id="card-meaning-2"></div>
             </div>
         </div>
 
-        <div class="prompt-area" style="display: none;"> <h2>星辰諭示錄</h2> <p>將此段密語傳遞給智慧之源（AI模型），以獲取更深層的啟示：</p>
-            <textarea id="llm-prompt-output" rows="15" readonly></textarea>
-                <button id="copy-prompt-button">複製諭示</button> 
-            </div>
+        <div class="interpretation-area" id="concise-interpretation-section" style="display: none;">
+            <h2>初步解讀</h2>
+            <div id="concise-interpretation-output" class="interpretation-output"></div>
+            <button id="get-detailed-advice-button" style="display: none;">獲取詳細建議</button>
+        </div>
+
+        <div class="interpretation-area" id="detailed-advice-section" style="display: none;">
+            <h2>詳細建議方向</h2>
+            <div id="detailed-advice-output" class="interpretation-output"></div>
+        </div>
+
     </main>
 
     <footer>
