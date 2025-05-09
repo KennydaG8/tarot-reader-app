@@ -124,8 +124,8 @@ function displayCardBacksInitial() {
 
 function enableCardClicks() {
     cardSlots = document.querySelectorAll('.card-slot'); // Re-select
-    cardImages = document.querySelectorAll('.card-slot img');
-    cardMeanings = document.querySelectorAll('.card-meaning');
+    cardImages = document.querySelectorAll('.card-slot img'); // Re-select at the beginning
+    cardMeanings = document.querySelectorAll('.card-meaning'); // Re-select at the beginning
 
     cardSlots.forEach((slot, index) => {
         const imgElement = cardImages[index];
@@ -134,13 +134,16 @@ function enableCardClicks() {
             // Clone and replace to remove old listeners, then add new one
             const newImgElement = imgElement.cloneNode(true);
             imgElement.parentNode.replaceChild(newImgElement, imgElement);
+            // Add event listener to the NEW cloned element
             newImgElement.addEventListener('click', () => revealCard(index), { once: true });
         } else if (imgElement) {
             imgElement.style.cursor = 'default';
         }
     });
-    // Update references after cloning
+
+    // Update references AFTER cloning and replacing all relevant elements
     cardImages = document.querySelectorAll('.card-slot img');
+    cardMeanings = document.querySelectorAll('.card-meaning'); // <--- ADD THIS LINE
 }
 
 function checkAllCardsRevealed() {

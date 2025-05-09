@@ -1,0 +1,10 @@
+[build]
+  # Command to build your site (if any, for static it's often not needed)
+  # command = "echo 'No build command'"
+  publish = "." # Publish the root directory (where index.html is)
+  functions = "netlify/functions/" # Directory for serverless functions
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
