@@ -123,9 +123,11 @@ function displayCardBacksInitial() {
 }
 
 function enableCardClicks() {
+    console.log("enableCardClicks: Start"); // Debug
     cardSlots = document.querySelectorAll('.card-slot'); // Re-select
     cardImages = document.querySelectorAll('.card-slot img'); // Re-select at the beginning
     cardMeanings = document.querySelectorAll('.card-meaning'); // Re-select at the beginning
+    console.log(`enableCardClicks: Initial query - cardSlots: ${cardSlots.length}, cardImages: ${cardImages.length}, cardMeanings: ${cardMeanings.length}`); // Debug
 
     cardSlots.forEach((slot, index) => {
         const imgElement = cardImages[index];
@@ -144,6 +146,8 @@ function enableCardClicks() {
     // Update references AFTER cloning and replacing all relevant elements
     cardImages = document.querySelectorAll('.card-slot img');
     cardMeanings = document.querySelectorAll('.card-meaning'); // <--- ADD THIS LINE
+    console.log(`enableCardClicks: Final re-query - cardImages: ${cardImages.length}, cardMeanings: ${cardMeanings.length}`); // Debug
+    console.log("enableCardClicks: End"); // Debug
 }
 
 function checkAllCardsRevealed() {
@@ -160,61 +164,86 @@ function getUserInputs() {
 
 async function revealCard(index) {
     console.log(`揭示第 ${index + 1} 道星光...`);
-    if (ritualState !== 'cut_done') { console.warn("儀式步驟錯誤，無法揭示。"); return; }
-    if (currentDrawnCardsDetails.length > index && currentDrawnCardsDetails[index] && !currentDrawnCardsDetails[index].revealed) {
-        const card = currentDrawnCardsDetails[index];
-        const imgElement = cardImages[index];
-        const meaningElement = cardMeanings[index];
+    console.log(`revealCard: Called for index ${index}`);
+    console.log(`revealCard: current cardImages length: ${cardImages.length}, cardMeanings length: ${cardMeanings.length}`); // For debugging
 
-        if (!imgElement || !meaningElement) { console.error(`無法找到索引 ${index} 的 DOM 元素。`); return; }
+    if (ritualState !== 'cut_done') {
+        console.warn("儀式步驟錯誤，無法揭示。");
+        return;
+    }
+    if (!(currentDrawnCardsDetails.length > index && currentDrawnCardsDetails[index] && !currentDrawnCardsDetails[index].revealed)) {
+        console.log(`第 ${index + 1} 張牌不存在、資料錯誤或已被揭示。`);
+        return;
+    }
 
-        console.log(`揭示: ${card.name} (${card.isReversed ? '逆位' : '正位'})`);
-        imgElement.src = card.image; // Use local image path
-        imgElement.alt = card.name;
-        if (card.isReversed) { imgElement.classList.add('reversed'); } else { imgElement.classList.remove('reversed'); }
+    const card = currentDrawnCardsDetails[index];
+    const imgElement = cardImages[index]; // Assumes cardImages is correctly populated and fresh
 
-        let meaningText = `<b>${card.name} (${card.isReversed ? '逆位' : '正位'})</b><br>`;
-        meaningText += `關鍵詞: ${card.keywords.join('、')}<br>啟示: ${card.meaning}`;
-        meaningElement.innerHTML = meaningText;
-
-        currentDrawnCardsDetails[index].revealed = true;
-        imgElement.style.cursor = 'default';
-        imgElement.classList.add('revealed');
-
-        if (checkAllCardsRevealed()) {
-            console.log("所有星光已被揭示，準備請求初步解讀...");
-            ritualState = 'fetching_concise';
-            loadingMessage.textContent = "正在獲取初步解讀...";
-            loadingMessage.style.display = 'block';
-            guidanceReveal.style.display = 'none';
-
-            const userInputs = getUserInputs();
-            if (!userInputs.topic || !userInputs.question) {
-                alert("請確保已選擇探尋領域並低語您的探問！");
-                loadingMessage.style.display = 'none';
-                ritualState = 'cut_done'; // Revert state
-                return;
-            }
-            // Prepare data for backend
-            const requestData = {
-                topic: userInputs.topic,
-                question: userInputs.question,
-                drawn_cards: currentDrawnCardsDetails.map(c => ({ // Send detailed card info
-                    name: c.name,
-                    isReversed: c.isReversed,
-                    keywords: c.keywords, // Already selected based on orientation
-                    // Send base meanings/keywords too if backend needs them for some reason
-                    // This might be redundant if backend only uses the selected 'keywords' and 'meaning'
-                    keywords_upright: c.keywords_upright,
-                    keywords_reversed: c.keywords_reversed,
-                    meaning_upright: c.meaning_upright,
-                    meaning_reversed: c.meaning_reversed,
-                }))
-            };
-            await fetchConciseInterpretation(requestData);
+    // --- MODIFIED WAY TO GET meaningElement ---
+    let meaningElement = null;
+    if (imgElement) {
+        // Navigate from the imgElement to its corresponding .card-meaning sibling
+        // imgElement -> parent (.card-slot) -> parent (.card-position) -> child (.card-meaning)
+        const cardPositionDiv = imgElement.closest('.card-position');
+        if (cardPositionDiv) {
+            meaningElement = cardPositionDiv.querySelector('.card-meaning');
         }
-    } else {
-        console.log(`第 ${index + 1} 道星光已被揭示或儀式步驟不符。`);
+    }
+    // --- END MODIFICATION ---
+
+    // Now the check:
+    if (!imgElement || !meaningElement) {
+        console.error(`無法找到索引 ${index} 的 DOM 元素。imgElement: ${imgElement}, meaningElement: ${meaningElement}`);
+        // Log more details for debugging
+        if (imgElement) { // If imgElement exists but meaningElement doesn't
+             const cardPositionDiv = imgElement.closest('.card-position');
+             console.log("Parent .card-position for imgElement:", cardPositionDiv);
+             if(cardPositionDiv) console.log("Children of .card-position:", cardPositionDiv.children);
+        }
+        return;
+    }
+
+    console.log(`揭示: ${card.name} (${card.isReversed ? '逆位' : '正位'})`);
+    imgElement.src = card.image;
+    imgElement.alt = card.name;
+    if (card.isReversed) { imgElement.classList.add('reversed'); } else { imgElement.classList.remove('reversed'); }
+
+    let meaningText = `<b>${card.name} (${card.isReversed ? '逆位' : '正位'})</b><br>`;
+    meaningText += `關鍵詞: ${card.keywords.join('、')}<br>啟示: ${card.meaning}`;
+    meaningElement.innerHTML = meaningText;
+
+    currentDrawnCardsDetails[index].revealed = true;
+    imgElement.style.cursor = 'default';
+    imgElement.classList.add('revealed');
+
+    if (checkAllCardsRevealed()) {
+        console.log("所有星光已被揭示，準備請求初步解讀...");
+        ritualState = 'fetching_concise';
+        loadingMessage.textContent = "正在獲取初步解讀...";
+        loadingMessage.style.display = 'block';
+        guidanceReveal.style.display = 'none';
+
+        const userInputs = getUserInputs();
+        if (!userInputs.topic || !userInputs.question) {
+            alert("請確保已選擇探尋領域並低語您的探問！");
+            loadingMessage.style.display = 'none';
+            ritualState = 'cut_done'; // Revert state
+            return;
+        }
+        const requestData = {
+            topic: userInputs.topic,
+            question: userInputs.question,
+            drawn_cards: currentDrawnCardsDetails.map(c => ({
+                name: c.name,
+                isReversed: c.isReversed,
+                keywords: c.keywords,
+                keywords_upright: c.keywords_upright,
+                keywords_reversed: c.keywords_reversed,
+                meaning_upright: c.meaning_upright,
+                meaning_reversed: c.meaning_reversed,
+            }))
+        };
+        await fetchConciseInterpretation(requestData);
     }
 }
 
